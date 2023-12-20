@@ -1,13 +1,14 @@
 {
-    "manifest_version": 3,
+    "manifest_version": 2,
     "name": "ReSort",
     "version": "0.1",
     "description": "Re-sort lists alphabetically",
-    "permissions": ["storage", "tabs"],
-    "host_permissions": [
+    "permissions": [
+        "storage",
+        "tabs",
         "https://*.youtube.com/*",
         "https://*.wikipedia.org/*"
-   ],
+    ],
     "content_scripts" : [{
         "matches" : [
             "https://*.youtube.com/*",
