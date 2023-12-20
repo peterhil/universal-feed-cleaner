@@ -1,0 +1,11 @@
+{
+    "name": "resort",
+    "description": "Re-sort lists alphabetically",
+    "version": "0.1",
+    "author": "Peter Hillerström <peter.hillerstrom@gmail.com>",
+    "license": "MPL-2.0",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    }
+}
