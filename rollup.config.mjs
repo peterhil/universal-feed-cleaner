@@ -1,5 +1,7 @@
 import alias from '@rollup/plugin-alias'
+import eslint from '@rollup/plugin-eslint'
 import copy from 'rollup-plugin-copy'
+import terser from '@rollup/plugin-terser'
 
 import { isDev, outputDir, rel, target } from './utils.config.mjs'
 
@@ -15,6 +17,14 @@ const plugins = [
     alias({
         entries: aliases,
     }),
+
+    eslint({
+        exclude: [
+            'src/**/*.{css,sass}',
+        ]
+    }),
+
+    !isDev && terser(),
 ]
 
 const copyAssets = [
