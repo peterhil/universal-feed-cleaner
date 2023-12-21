@@ -1,6 +1,5 @@
-const elemId = 'mw-panel-toc-list'
-
-let element = document.getElementById(elemId)
+const id = 'mw-panel-toc-list'
+const element = document.getElementById(id)
 
 function innerTextLocaleCompare (a, b) {
     return a.innerText.localeCompare(b.innerText)
