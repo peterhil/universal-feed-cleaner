@@ -13,5 +13,15 @@
     "dependencies": {
         "rollup": "^4.9.1",
         "rollup-plugin-copy": "^3.5.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.11.0",
+        "@babel/eslint-parser": "^7.23.3",
+        "@rollup/plugin-eslint": "^9.0.5",
+        "eslint": "^8.56.0",
+        "eslint-config-standard": "^17.1.0",
+        "eslint-plugin-import": "^2.25.2",
+        "eslint-plugin-n": "^15.0.0 || ^16.0.0",
+        "eslint-plugin-promise": "^6.0.0"
     }
 }
