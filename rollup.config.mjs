@@ -1,6 +1,8 @@
 import alias from '@rollup/plugin-alias'
-import eslint from '@rollup/plugin-eslint'
+import commonjs from '@rollup/plugin-commonjs'
 import copy from 'rollup-plugin-copy'
+import eslint from '@rollup/plugin-eslint'
+import resolve from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
 
 import { isDev, outputDir, rel, target } from './utils.config.mjs'
@@ -23,6 +25,20 @@ const plugins = [
             'src/**/*.{css,sass}',
         ]
     }),
+
+    // Resolve node modules
+    resolve({
+        browser: true, // default: false
+        dedupe: [],
+        modulesOnly: false, // default: false
+        modulePaths: [
+            './node_modules/'
+        ],
+        preferBuiltins: false,
+    }),
+
+    // Convert CommonJS libraries to ES6
+    commonjs(),
 
     !isDev && terser(),
 ]
