@@ -10,11 +10,10 @@
         "dev": "rm -rf dev/* && NODE_ENV=development rollup -cw",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "dependencies": {
-    },
     "devDependencies": {
         "@babel/core": "^7.11.0",
         "@babel/eslint-parser": "^7.23.3",
+        "@rollup/plugin-alias": "^5.1.0",
         "@rollup/plugin-eslint": "^9.0.5",
         "eslint": "^8.56.0",
         "eslint-config-standard": "^17.1.0",

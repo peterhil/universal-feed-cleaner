@@ -1,12 +1,20 @@
+import alias from '@rollup/plugin-alias'
 import copy from 'rollup-plugin-copy'
 
-import { isDev, outputDir, target } from './utils.config.mjs'
+import { isDev, outputDir, rel, target } from './utils.config.mjs'
 
 const format = 'es'
 const sourcemap = (isDev ? 'inline' : false)
 const verbose = true
 
+const aliases = [
+    { find: '@js', replacement: rel('src/js') },
+]
+
 const plugins = [
+    alias({
+        entries: aliases,
+    }),
 ]
 
 const copyAssets = [
