@@ -66,10 +66,10 @@ const watch = {
 export default [
     {
         input: {
-            content: 'src/js/content/main.js',
+            main: 'src/js/content/main.js',
         },
         output: {
-            dir: outputDir('js'),
+            dir: outputDir('js/content'),
             entryFileNames: '[name].js',
             format,
             manualChunks: {
