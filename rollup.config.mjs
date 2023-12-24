@@ -65,18 +65,33 @@ const watch = {
 
 export default [
     {
-        input: {
-            main: 'src/js/content/main.js',
-        },
+        input: 'src/js/content/main.js',
         output: {
             dir: outputDir('js/content'),
-            entryFileNames: '[name].js',
             format,
-            manualChunks: {
-            },
             sourcemap,
         },
         plugins: plugins.concat(copyAssets),
         watch,
-    }
+    },
+    {
+        input: 'src/js/content/wikipedia.js',
+        output: {
+            dir: outputDir('js/content'),
+            format,
+            sourcemap,
+        },
+        plugins,
+        watch,
+    },
+    {
+        input: 'src/js/content/youtube.js',
+        output: {
+            dir: outputDir('js/content'),
+            format,
+            sourcemap,
+        },
+        plugins,
+        watch,
+    },
 ]

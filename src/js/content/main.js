@@ -1,6 +1,17 @@
-import { sortElementChildren } from '@js/lib/sorting'
+/* global chrome */
 
-const id = 'mw-panel-toc-list'
-const element = document.getElementById(id)
+// Use ES modules with dynamic import() on content scripts
+// https://stackoverflow.com/a/53033388/470560
+(async () => {
+    let url = null
+    if (document.location.href.match('youtube.com')) {
+        url = 'js/content/youtube.js'
+    }
+    else {
+        url = 'js/content/wikipedia.js'
+    }
+    const src = chrome.runtime.getURL(url)
+    const contentScript = await import(src)
 
-sortElementChildren(element)
+    contentScript.main()
+})()
