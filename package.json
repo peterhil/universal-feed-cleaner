@@ -25,5 +25,8 @@
         "eslint-plugin-promise": "^6.0.0",
         "rollup": "^4.9.1",
         "rollup-plugin-copy": "^3.5.0"
+    },
+    "dependencies": {
+        "jquery": "^3.7.1"
     }
 }

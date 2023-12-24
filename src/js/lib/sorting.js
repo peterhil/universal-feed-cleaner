@@ -3,6 +3,10 @@ function innerTextLocaleCompare (a, b) {
 }
 
 export function sortElementChildren (element) {
+    console.debug('[Resort] sortElementChildren')
+
     const children = [...element.children].sort(innerTextLocaleCompare)
     element.replaceChildren(...children)
+
+    return element.children
 }

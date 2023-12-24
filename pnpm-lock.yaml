@@ -13,8 +13,12 @@ specifiers:
   eslint-plugin-import: ^2.25.2
   eslint-plugin-n: ^15.0.0 || ^16.0.0
   eslint-plugin-promise: ^6.0.0
+  jquery: ^3.7.1
   rollup: ^4.9.1
   rollup-plugin-copy: ^3.5.0
+
+dependencies:
+  jquery: 3.7.1
 
 devDependencies:
   '@babel/core': 7.23.6
@@ -1719,6 +1723,10 @@ packages:
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
+
+  /jquery/3.7.1:
+    resolution: {integrity: sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==}
+    dev: false
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}

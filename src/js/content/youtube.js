@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 import { sortElementChildren } from '@js/lib/sorting'
 
 const id = 'ytd-popup-container'
@@ -7,7 +9,27 @@ const config = {
     characterData: false,
 }
 
-let container = null
+function sortPlaylists () {
+    const container = document.getElementById('playlists')
+
+    if (container) {
+        sortElementChildren(container)
+        console.debug('[Resort] Sorted the children')
+    }
+    else {
+        console.warn('[Resort] Container is null!')
+    }
+}
+
+function onSave (event) {
+    console.debug('[Resort] onSave')
+    setTimeout(sortPlaylists, 1000)
+}
+
+function attachClickHandlers () {
+    console.debug('[Resort] attachClickHandlers')
+    $('body').on('click', 'button[title="Save"]', onSave)
+}
 
 // Create an observer instance
 const observer = new MutationObserver(function (mutations) {
@@ -20,15 +42,13 @@ const observer = new MutationObserver(function (mutations) {
                 if (node.classList.contains(id)) {
                     console.debug('[Resort] Popup opened:', node)
 
-                    container = document.getElementById('playlists')
+                    // container = document.getElementById('playlists')
                 }
             })
         }
     })
 
-    if (container) {
-        sortElementChildren(container)
-    }
+    sortPlaylists()
 })
 
 export function main () {
@@ -41,4 +61,6 @@ export function main () {
 
     // Later, you can stop observing
     // observer.disconnect()
+
+    attachClickHandlers()
 }
