@@ -75,6 +75,16 @@ export default [
         watch,
     },
     {
+        input: 'src/js/content/twitter.js',
+        output: {
+            dir: outputDir('js/content'),
+            format,
+            sourcemap,
+        },
+        plugins,
+        watch,
+    },
+    {
         input: 'src/js/content/wikipedia.js',
         output: {
             dir: outputDir('js/content'),

@@ -4,7 +4,12 @@
 // https://stackoverflow.com/a/53033388/470560
 (async () => {
     let url = null
-    if (document.location.href.match('youtube.com')) {
+    const location = document.location.host
+
+    if (location.match('twitter.com')) {
+        url = 'js/content/twitter.js'
+    }
+    else if (location.match('youtube.com')) {
         url = 'js/content/youtube.js'
     }
     else {
