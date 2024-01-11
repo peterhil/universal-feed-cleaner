@@ -14,20 +14,20 @@ function sortPlaylists () {
 
     if (container) {
         sortElementChildren(container)
-        console.debug('[Resort] Sorted the children')
+        console.debug('[CW] Sorted the children')
     }
     else {
-        console.warn('[Resort] Container is null!')
+        console.warn('[CW] Container is null!')
     }
 }
 
 function onSave (event) {
-    console.debug('[Resort] onSave')
+    console.debug('[CW] onSave')
     setTimeout(sortPlaylists, 1000)
 }
 
 function attachClickHandlers () {
-    console.debug('[Resort] attachClickHandlers')
+    console.debug('[CW] attachClickHandlers')
     $('body').on('click', 'button[title="Save"]', onSave)
 }
 
@@ -35,12 +35,12 @@ function attachClickHandlers () {
 const observer = new MutationObserver(function (mutations) {
     mutations.forEach(function (mutation) {
         const newNodes = mutation.addedNodes // DOM NodeList
-        console.debug('[Resort] Mutation:', mutation)
+        console.debug('[CW] Mutation:', mutation)
 
         if (newNodes) {
             newNodes.forEach(function (node) {
                 if (node.classList.contains(id)) {
-                    console.debug('[Resort] Popup opened:', node)
+                    console.debug('[CW] Popup opened:', node)
 
                     // container = document.getElementById('playlists')
                 }
@@ -52,7 +52,7 @@ const observer = new MutationObserver(function (mutations) {
 })
 
 export function main () {
-    console.log('[Resort]: youtube.js on', document.location.href)
+    console.log('[CW]: youtube.js on', document.location.href)
 
     const popup = document.getElementsByTagName(id)[0]
 

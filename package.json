@@ -1,6 +1,6 @@
 {
-    "name": "resort",
-    "description": "Re-sort lists alphabetically",
+    "name": "content-warning",
+    "description": "Hide triggering social media content behind a warning to have better peace of mind.",
     "version": "0.1",
     "author": "Peter Hillerström <peter.hillerstrom@gmail.com>",
     "license": "MPL-2.0",
