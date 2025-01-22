@@ -17,7 +17,7 @@
         }
     ],
     "web_accessible_resources": [
-        "js/content/twitter.js",
+        "js/content/universal.js",
         "js/content/wikipedia.js"
     ]
 }

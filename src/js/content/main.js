@@ -6,11 +6,11 @@
     let url = null
     const location = document.location.host
 
-    if (location.match('twitter.com')) {
-        url = 'js/content/twitter.js'
+    if (location.match('wikipedia.org')) {
+        url = 'js/content/wikipedia.js'
     }
     else {
-        url = 'js/content/wikipedia.js'
+        url = 'js/content/universal.js'
     }
     const src = chrome.runtime.getURL(url)
     const contentScript = await import(src)

@@ -75,7 +75,7 @@ export default [
         watch,
     },
     {
-        input: 'src/js/content/twitter.js',
+        input: 'src/js/content/universal.js',
         output: {
             dir: outputDir('js/content'),
             format,
