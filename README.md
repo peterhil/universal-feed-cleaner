@@ -1,4 +1,3 @@
-# Content warning
+# Universal feed cleaner
 
-Hide triggering social media content behind a warning to have better
-peace of mind.
+Hide social media and other feed contents by keywords to have some peace of mind.
