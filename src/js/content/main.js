@@ -6,8 +6,8 @@
     let url = null
     const location = document.location.host
 
-    if (location.match('wikipedia.org')) {
-        url = 'js/content/wikipedia.js'
+    if (location.match('bsky.app')) {
+        url = 'js/content/bsky.js'
     }
     else {
         url = 'js/content/universal.js'

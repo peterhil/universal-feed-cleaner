@@ -75,7 +75,7 @@ export default [
         watch,
     },
     {
-        input: 'src/js/content/universal.js',
+        input: 'src/js/content/bsky.js',
         output: {
             dir: outputDir('js/content'),
             format,
@@ -85,7 +85,7 @@ export default [
         watch,
     },
     {
-        input: 'src/js/content/wikipedia.js',
+        input: 'src/js/content/universal.js',
         output: {
             dir: outputDir('js/content'),
             format,
