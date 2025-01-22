@@ -1,25 +1,23 @@
 {
     "manifest_version": 2,
-    "name": "Content warning",
+    "name": "Universal feed cleaner",
     "version": "0.1",
     "description": "Hide triggering social media content behind a warning to have better peace of mind.",
     "permissions": [
         "storage",
         "tabs",
-        "https://*.twitter.com/*",
-        "https://*.wikipedia.org/*"
+        "https://*/"
     ],
     "content_scripts" : [
         {
             "matches" : [
-                "https://*.twitter.com/*",
-                "https://*.wikipedia.org/*",
+                "<all_urls>"
             ],
             "js" : ["js/content/main.js"]
         }
     ],
     "web_accessible_resources": [
         "js/content/twitter.js",
-        "js/content/wikipedia.js",
+        "js/content/wikipedia.js"
     ]
 }
