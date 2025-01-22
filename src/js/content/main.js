@@ -9,9 +9,6 @@
     if (location.match('twitter.com')) {
         url = 'js/content/twitter.js'
     }
-    else if (location.match('youtube.com')) {
-        url = 'js/content/youtube.js'
-    }
     else {
         url = 'js/content/wikipedia.js'
     }

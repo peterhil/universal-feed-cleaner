@@ -7,7 +7,6 @@
         "storage",
         "tabs",
         "https://*.twitter.com/*",
-        "https://*.youtube.com/*",
         "https://*.wikipedia.org/*"
     ],
     "content_scripts" : [
@@ -15,7 +14,6 @@
             "matches" : [
                 "https://*.twitter.com/*",
                 "https://*.wikipedia.org/*",
-                "https://*.youtube.com/*"
             ],
             "js" : ["js/content/main.js"]
         }
@@ -23,6 +21,5 @@
     "web_accessible_resources": [
         "js/content/twitter.js",
         "js/content/wikipedia.js",
-        "js/content/youtube.js"
     ]
 }

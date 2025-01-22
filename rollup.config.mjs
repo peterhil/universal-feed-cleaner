@@ -94,14 +94,4 @@ export default [
         plugins,
         watch,
     },
-    {
-        input: 'src/js/content/youtube.js',
-        output: {
-            dir: outputDir('js/content'),
-            format,
-            sourcemap,
-        },
-        plugins,
-        watch,
-    },
 ]
