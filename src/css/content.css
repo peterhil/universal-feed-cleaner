@@ -1,0 +1,4 @@
+[data-ufc="container"] {
+    outline: 3px solid lime;
+    outline-offset: -3px;
+}

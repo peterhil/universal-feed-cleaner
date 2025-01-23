@@ -47,6 +47,7 @@ const copyAssets = [
     copy({
         targets: [{
             src: [
+                'src/css/content.css',
                 'src/manifest.json',
             ],
             dest: outputDir(),

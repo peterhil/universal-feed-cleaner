@@ -11,6 +11,10 @@ function findContainers () {
 export function main () {
     const containers = findContainers()
     console.log('[UFC] main: bsky.js on', document.location.href, containers)
+
+    containers.forEach((node) => {
+        node.dataset.ufc = 'container'
+    })
 }
 
 document.addEventListener('DOMContentLoaded', main)
