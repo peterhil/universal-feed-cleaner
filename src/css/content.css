@@ -2,3 +2,8 @@
     outline: 3px solid lime;
     outline-offset: -3px;
 }
+
+[data-ufc="element"] {
+    outline: 3px solid yellow;
+    outline-offset: -3px;
+}

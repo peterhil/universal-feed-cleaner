@@ -61,7 +61,7 @@ const watch = {
     chokidar: true,
     clearScreen: true,
     exclude: ['node_modules/**'],
-    include: ['src/**/*'],
+    include: ['src/**/*', 'src/css/content.css'],
 }
 
 export default [
