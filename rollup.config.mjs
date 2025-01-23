@@ -65,6 +65,16 @@ const watch = {
 
 export default [
     {
+        input: 'src/js/background/script.js',
+        output: {
+            dir: outputDir('js/background'),
+            format,
+            sourcemap,
+        },
+        plugins,
+        watch,
+    },
+    {
         input: 'src/js/content/main.js',
         output: {
             dir: outputDir('js/content'),

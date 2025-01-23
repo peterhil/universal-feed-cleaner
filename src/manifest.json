@@ -9,6 +9,9 @@
         "https://*/",
         "webRequest"
     ],
+    "background": {
+        "scripts": ["js/background/script.js"]
+    },
     "content_scripts" : [
         {
             "matches" : ["<all_urls>"],
