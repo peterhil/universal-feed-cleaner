@@ -8,13 +8,19 @@ function findContainers () {
     return Array.from(document.querySelectorAll('*')).filter(isVerticalContainer)
 }
 
+function markContainer (node) {
+    if (node.dataset.ufc === 'container') {
+        return
+    }
+
+    node.dataset.ufc = 'container'
+}
+
 export function main () {
     const containers = findContainers()
     console.log('[UFC] main: bsky.js on', document.location.href, containers)
 
-    containers.forEach((node) => {
-        node.dataset.ufc = 'container'
-    })
+    containers.forEach(markContainer)
 }
 
 document.addEventListener('DOMContentLoaded', main)
