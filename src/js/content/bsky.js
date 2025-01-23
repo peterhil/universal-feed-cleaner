@@ -11,12 +11,7 @@ export function main () {
     console.log('[UFC] main: bsky.js on', document.location.href, containers)
 }
 
-console.log('[UFC]: loaded on', document.location.href)
-
-window.addEventListener('load', main, false)
-// document.addEventListener("DOMContentLoaded", main)
-
-setTimeout(main, 7000)
+document.addEventListener("DOMContentLoaded", main)
 
 function handleMessage(request, sender) {
     console.debug('[UFC] Content script got a message:', request, sender)
