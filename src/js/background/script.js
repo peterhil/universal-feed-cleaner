@@ -9,9 +9,11 @@ function onRequestCompleted (details) {
 
         console.info('XHR completed:', details)
 
-        // Note: You can also use a connection-based approach to exchange messages.
-        // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts#connection-based_messaging
-        browser.tabs.sendMessage(tabId, message)
+        if (tabId >= 0) {
+            // Note: You can also use a connection-based approach to exchange messages.
+            // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Content_scripts#connection-based_messaging
+            browser.tabs.sendMessage(tabId, message)
+        }
     }
 
     return { cancel: false }
