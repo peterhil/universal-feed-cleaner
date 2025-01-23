@@ -1,3 +1,5 @@
+/* global browser */
+
 function isVerticalContainer (elem) {
     return elem.childElementCount > 4 && elem.offsetHeight > elem.offsetWidth
 }
@@ -11,9 +13,9 @@ export function main () {
     console.log('[UFC] main: bsky.js on', document.location.href, containers)
 }
 
-document.addEventListener("DOMContentLoaded", main)
+document.addEventListener('DOMContentLoaded', main)
 
-function handleMessage(request, sender) {
+function handleMessage (request, sender) {
     console.debug('[UFC] Content script got a message:', request, sender)
     main()
 }

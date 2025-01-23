@@ -1,8 +1,10 @@
+/* global browser */
+
 console.log('[UFC]: background script')
 
 function onRequestCompleted (details) {
-    if (details.method === "GET" && details.type === "xmlhttprequest") {
-        const message = {type: 'xhr', details}
+    if (details.method === 'GET' && details.type === 'xmlhttprequest') {
+        const message = { type: 'xhr', details }
         const tabId = details.tabId
 
         console.info('XHR completed:', details)
