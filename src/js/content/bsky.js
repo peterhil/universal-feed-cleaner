@@ -17,3 +17,10 @@ window.addEventListener('load', main, false)
 // document.addEventListener("DOMContentLoaded", main)
 
 setTimeout(main, 7000)
+
+function handleMessage(request, sender) {
+    console.debug('[UFC] Content script got a message:', request, sender)
+    main()
+}
+
+browser.runtime.onMessage.addListener(handleMessage)
