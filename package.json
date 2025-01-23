@@ -27,6 +27,7 @@
         "rollup-plugin-copy": "^3.5.0"
     },
     "dependencies": {
-        "jquery": "^3.7.1"
+        "jquery": "^3.7.1",
+        "rambdax": "^11.3.1"
     }
 }
