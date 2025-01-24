@@ -1,7 +1,6 @@
 /* global browser */
 
 import * as R from 'rambdax'
-import u from 'umbrellajs'
 
 const valueSorter = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
 
@@ -17,9 +16,18 @@ function isVerticalContainer (elem) {
     return elem.offsetHeight > elem.offsetWidth
 }
 
+function isVisible (node) {
+    return !!(node.offsetWidth || node.offsetHeight || node.getClientRects().length)
+}
+
 function findContainers () {
     return Array.from(document.querySelectorAll('*'))
-        .filter(node => node.childElementCount > 4 && isVerticalContainer(node) && notBodySize(node))
+        .filter(node => {
+            return node.childElementCount > 4
+                && isVisible(node)
+                && isVerticalContainer(node)
+                && notBodySize(node)
+        })
 }
 
 function findSimilarElements (container) {
@@ -81,11 +89,34 @@ function markContainer (node) {
     node.dataset.ufcChildElementCount = node.childElementCount
 }
 
+// From https://youmightnotneedjquery.com/#parents
+function parents (node, selector) {
+    const parents = []
+
+    while ((node = node.parentNode) && node !== document) {
+        if (!selector || node.matches(selector)) parents.push(node)
+    }
+
+    return parents
+}
+
+function markWrapper (node) {
+    if (node.dataset.ufc !== 'container') return
+
+    const parentContainers = parents(node, '[data-ufc="container"]')
+
+    parentContainers.forEach(node => {
+        node.dataset.ufc = 'wrapper'
+    })
+}
+
 export function main () {
     const containers = findContainers()
-    console.debug('[UFC] main: bsky.js on', document.location.href, containers)
+    const url = document.location.href
+    console.debug('[UFC] main: bsky.js on', url, { containers })
 
     containers.forEach(markContainer)
+    containers.forEach(markWrapper)
 }
 
 function onMessage (request, sender) {
