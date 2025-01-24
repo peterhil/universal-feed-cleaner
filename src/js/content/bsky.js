@@ -80,11 +80,13 @@ export function main () {
     containers.forEach(markContainer)
 }
 
-document.addEventListener('DOMContentLoaded', main)
-
-function handleMessage (request, sender) {
+function onMessage (request, sender) {
     console.debug('[UFC] Content script got a message:', request, sender)
-    main()
+    if (request.type === 'xhr') {
+        main()
+    }
 }
 
-browser.runtime.onMessage.addListener(handleMessage)
+document.addEventListener('DOMContentLoaded', main)
+
+browser.runtime.onMessage.addListener(onMessage)
