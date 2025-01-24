@@ -12,7 +12,7 @@ function notBodySize (node) {
     return !(sameWidth && sameHeight)
 }
 
-function isVerticalContainer (elem) {
+function isVertical (elem) {
     return elem.offsetHeight > elem.offsetWidth
 }
 
@@ -25,7 +25,7 @@ function findContainers () {
 
     return nodes.filter(
         node => isVisible(node) &&
-            isVerticalContainer(node) &&
+            isVertical(node) &&
             notBodySize(node)
     )
 }
