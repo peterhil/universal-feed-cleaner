@@ -21,13 +21,13 @@ function isVisible (node) {
 }
 
 function findContainers () {
-    return Array.from(document.querySelectorAll('*'))
-        .filter(node => {
-            return node.childElementCount > 4
-                && isVisible(node)
-                && isVerticalContainer(node)
-                && notBodySize(node)
-        })
+    const nodes = [...document.querySelectorAll(':nth-child(5)')].map(n => n.parentNode)
+
+    return nodes.filter(
+        node => isVisible(node) &&
+            isVerticalContainer(node) &&
+            notBodySize(node)
+    )
 }
 
 function findSimilarElements (container) {
