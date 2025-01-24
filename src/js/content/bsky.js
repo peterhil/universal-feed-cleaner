@@ -62,15 +62,22 @@ function markElement (node) {
 }
 
 function markContainer (node) {
-    const mostCommon = findSimilarElements(node)
+    // Skip if child count is unchanged
+    if (node.childElementCount.toString() === node.dataset.ufcChildElementCount) {
+        return
+    }
 
-    node.dataset.ufc = 'container'
+    const mostCommon = findSimilarElements(node)
 
     if (mostCommon.length <= 1) {
         return
     }
 
+    node.dataset.ufc = 'container'
+
     mostCommon.forEach(markElement)
+
+    node.dataset.ufcChildElementCount = node.childElementCount
 }
 
 export function main () {
