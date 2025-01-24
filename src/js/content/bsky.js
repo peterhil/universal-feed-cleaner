@@ -1,13 +1,14 @@
 /* global browser */
 
 import * as R from 'rambdax'
+import u from 'umbrellajs'
 
 const valueSorter = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
 
 function notBodySize (node) {
     const body = document.body
-    const sameWidth = R.equals(body.offsetWidth, node.offsetWidth)
-    const sameHeight = R.equals(body.offsetHeight, node.offsetHeight)
+    const sameWidth = R.equals(body.scrollWidth, node.scrollWidth)
+    const sameHeight = R.equals(body.scrollHeight, node.scrollHeight)
 
     return !(sameWidth && sameHeight)
 }
