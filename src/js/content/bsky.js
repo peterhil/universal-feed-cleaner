@@ -13,13 +13,12 @@ function notBodySize (node) {
 }
 
 function isVerticalContainer (elem) {
-    return elem.childElementCount > 4 && elem.offsetHeight > elem.offsetWidth
+    return elem.offsetHeight > elem.offsetWidth
 }
 
 function findContainers () {
     return Array.from(document.querySelectorAll('*'))
-        .filter(isVerticalContainer)
-        .filter(notBodySize)
+        .filter(node => node.childElementCount > 4 && isVerticalContainer(node) && notBodySize(node))
 }
 
 function findSimilarElements (container) {
