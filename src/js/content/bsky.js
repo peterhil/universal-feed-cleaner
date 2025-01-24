@@ -110,6 +110,23 @@ function markWrapper (node) {
     })
 }
 
+function checkElement (node) {
+    const triggers = /Trump/i
+    let status = 'checked'
+
+    if (node.innerText.match(triggers)) {
+        status = 'hidden'
+    }
+
+    node.dataset.ufcStatus = status
+}
+
+function hideElements () {
+    const newElements = document.querySelectorAll('[data-ufc="element"]:not([data-ufc-status])')
+
+    newElements.forEach(checkElement)
+}
+
 export function main () {
     const containers = findContainers()
     const url = document.location.href
@@ -117,6 +134,8 @@ export function main () {
 
     containers.forEach(markContainer)
     containers.forEach(markWrapper)
+
+    hideElements()
 }
 
 function onMessage (request, sender) {

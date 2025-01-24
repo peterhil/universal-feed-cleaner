@@ -13,3 +13,8 @@
 [data-ufc="wrapper"] {
     outline: 3px solid cyan;
 }
+
+[data-ufc="container"] [data-ufc-status="hidden"] {
+    /* display: none !important; */
+    background: pink;
+}
