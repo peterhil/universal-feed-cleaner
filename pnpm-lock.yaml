@@ -17,12 +17,10 @@ specifiers:
   rambdax: ^11.3.1
   rollup: ^4.22.4
   rollup-plugin-copy: ^3.5.0
-  umbrellajs: ^3.3.3
 
 dependencies:
   jquery: 3.7.1
   rambdax: 11.3.1
-  umbrellajs: 3.3.3
 
 devDependencies:
   '@babel/core': 7.23.6
@@ -2398,10 +2396,6 @@ packages:
       for-each: 0.3.3
       is-typed-array: 1.1.12
     dev: true
-
-  /umbrellajs/3.3.3:
-    resolution: {integrity: sha512-VrKXEENk705mAVW5N3kxk73iuKeQifuacdmCDfOR6MZdf/AP3H/NQ46HqH32RRCAF7WfVv6t5ziFrvXA1nbHiw==}
-    dev: false
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
