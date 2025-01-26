@@ -1,6 +1,7 @@
 /* global browser */
 
 import * as R from 'rambdax'
+import escapeRegexp from 'escape-string-regexp'
 
 const valueSorter = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
 
@@ -111,12 +112,15 @@ function markWrapper (node) {
 }
 
 function checkElement (node) {
-    const triggers = /Trump/i
-    let status = 'checked'
-
-    if (node.innerText.match(triggers)) {
-        status = 'hidden'
-    }
+    const triggers = [
+        'Elon Musk',
+        'Trump',
+        'woke',
+    ]
+    const flags = 'ui'
+    const pattern = '(' + triggers.map(escapeRegexp).join('|') + ')'
+    const re = new RegExp(pattern, flags)
+    const status = re.test(node.innerText, re) ? 'hidden' : 'checked'
 
     node.dataset.ufcStatus = status
 }
