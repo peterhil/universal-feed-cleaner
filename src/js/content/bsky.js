@@ -117,10 +117,18 @@ function checkElement (node) {
         'Trump',
         'woke',
     ]
-    const flags = 'ui'
+    const flags = 'giu'
     const pattern = '(' + triggers.map(escapeRegexp).join('|') + ')'
     const re = new RegExp(pattern, flags)
     const status = re.test(node.innerText, re) ? 'hidden' : 'checked'
+
+    if (status === 'hidden') {
+        const matches = [...node.innerText.match(re)].sort()
+        const reason = [...new Set(matches)].join(', ')
+
+        // console.debug('[UFC] Matches:', { node, reason })
+        node.dataset.ufcReason = reason
+    }
 
     node.dataset.ufcStatus = status
 }
@@ -133,8 +141,8 @@ function hideElements () {
 
 export function main () {
     const containers = findContainers()
-    const url = document.location.href
-    console.debug('[UFC] main: bsky.js on', url, { containers })
+    // const url = document.location.href
+    // console.debug('[UFC] main: bsky.js on', url, { containers })
 
     containers.forEach(markContainer)
     containers.forEach(markWrapper)
@@ -143,7 +151,7 @@ export function main () {
 }
 
 function onMessage (request, sender) {
-    console.debug('[UFC] Content script got a message:', request, sender)
+    // console.debug('[UFC] Content script got a message:', request, sender)
     if (request.type === 'xhr') {
         main()
     }
