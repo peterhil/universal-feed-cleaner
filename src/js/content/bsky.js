@@ -20,7 +20,7 @@ import {
     parents,
     sameScrollSize,
 } from '@js/lib/dom'
-import { valueSorter } from '@js/lib/utils'
+import { iUniq, valueSorter } from '@js/lib/utils'
 
 function findContainers () {
     const nodes = [...document.querySelectorAll(':nth-child(5)')].map(n => n.parentNode)
@@ -129,8 +129,8 @@ function checkElement (node) {
     const status = re.test(node.innerText, re) ? 'hidden' : 'checked'
 
     if (status === 'hidden') {
-        const matches = [...node.innerText.match(re)].sort()
-        const reason = [...new Set(matches)].join(', ')
+        const matches = iUniq([...node.innerText.match(re)].sort())
+        const reason = [...matches].join(', ')
 
         // console.debug('[UFC] Matches:', { node, reason })
         node.dataset.ufcReason = reason
