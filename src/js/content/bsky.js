@@ -21,6 +21,17 @@ function isVisible (node) {
     return !!(node.offsetWidth || node.offsetHeight || node.getClientRects().length)
 }
 
+// From https://youmightnotneedjquery.com/#parents
+function parents (node, selector) {
+    const parents = []
+
+    while ((node = node.parentNode) && node !== document) {
+        if (!selector || node.matches(selector)) parents.push(node)
+    }
+
+    return parents
+}
+
 function findContainers () {
     const nodes = [...document.querySelectorAll(':nth-child(5)')].map(n => n.parentNode)
 
@@ -90,17 +101,6 @@ function markContainer (node) {
     node.dataset.ufcChildElementCount = node.childElementCount
 }
 
-// From https://youmightnotneedjquery.com/#parents
-function parents (node, selector) {
-    const parents = []
-
-    while ((node = node.parentNode) && node !== document) {
-        if (!selector || node.matches(selector)) parents.push(node)
-    }
-
-    return parents
-}
-
 function markWrapper (node) {
     if (node.dataset.ufc !== 'container') return
 
@@ -109,6 +109,11 @@ function markWrapper (node) {
     parentContainers.forEach(node => {
         node.dataset.ufc = 'wrapper'
     })
+}
+
+async function markContainers (containers) {
+    containers.forEach(markContainer)
+    containers.forEach(markWrapper)
 }
 
 function checkElement (node) {
@@ -139,19 +144,17 @@ function hideElements () {
     newElements.forEach(checkElement)
 }
 
+async function processContents () {
+    const containers = await findContainers()
+    await markContainers(containers)
+    await hideElements()
+}
+
 export function main () {
-    const containers = findContainers()
-    // const url = document.location.href
-    // console.debug('[UFC] main: bsky.js on', url, { containers })
-
-    containers.forEach(markContainer)
-    containers.forEach(markWrapper)
-
-    hideElements()
+    processContents()
 }
 
 function onMessage (request, sender) {
-    // console.debug('[UFC] Content script got a message:', request, sender)
     if (request.type === 'xhr') {
         main()
     }
