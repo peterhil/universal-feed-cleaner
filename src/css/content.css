@@ -14,30 +14,8 @@
     outline: 3px solid cyan;
 }
 
-[data-ufc="container"] [data-ufc-status="hidden"] {
-    /* display: none !important; */
-    position: relative;
+/* TODO Only mark elements hidden within containers */
+[data-ufc="container"] [data-ufc-status="hidden"] summary {
+    padding: 0.5em;
     background: pink;
-    max-height: 1.5em;
-    overflow: hidden;
-}
-
-[data-ufc="container"] [data-ufc-status="hidden"]:before {
-    display: block;
-    width: 100%;
-    content: attr(data-ufc-reason);
-    color: hotpink;
-}
-
-[data-ufc="container"] [data-ufc-status="hidden"]:after {
-    content: attr(data-ufc-reason);
-    display: block;
-    box-sizing: border-box;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    padding: 1em;
-    background: radial-gradient(#fff, #efefef);
-    color: #222;
-    border: 1px solid #222;
 }

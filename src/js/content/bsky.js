@@ -106,6 +106,17 @@ async function markContainers (containers) {
     containers.forEach(markWrapper)
 }
 
+function wrapIntoDetails (node, reason) {
+    const children = node.childNodes
+    const details = document.createElement('details')
+    const summary = document.createElement('summary')
+
+    summary.innerText = reason // TODO Use spans?
+
+    details.replaceChildren(summary, ...children)
+    node.replaceChildren(details)
+}
+
 function checkElement (node) {
     const triggers = [
         'Elon Musk',
@@ -123,19 +134,23 @@ function checkElement (node) {
 
         // console.debug('[UFC] Matches:', { node, reason })
         node.dataset.ufcReason = reason
+
+        wrapIntoDetails(node, reason)
     }
 
     node.dataset.ufcStatus = status
 }
 
 function hideElements () {
-    const newElements = document.querySelectorAll('[data-ufc="element"]:not([data-ufc-status])')
+    // TODO Find elements within a container given as input
+    const newElements = document.querySelectorAll('[data-ufc="container"] [data-ufc="element"]:not([data-ufc-status])')
 
     newElements.forEach(checkElement)
 }
 
 async function processContents () {
     const containers = await findContainers()
+    // TODO Return containers without wrappers and use with hideElements
     await markContainers(containers)
     await hideElements()
 }
