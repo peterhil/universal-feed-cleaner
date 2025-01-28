@@ -16,14 +16,19 @@
 
 [data-ufc="container"] [data-ufc-status="hidden"] {
     /* display: none !important; */
+    position: relative;
     background: pink;
-    max-height: 1.5em;
-    overflow: hidden;
 }
 
-[data-ufc="container"] [data-ufc-status="hidden"]:before {
-    display: block;
-    width: 100%;
+[data-ufc="container"] [data-ufc-status="hidden"]:after {
     content: attr(data-ufc-reason);
-    color: hotpink;
+    display: block;
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+    background: radial-gradient(#fff, #efefef);
+    color: #222;
+    border: 1px solid #222;
 }
