@@ -1,36 +1,26 @@
 /* global browser */
 
-import * as R from 'rambdax'
+import {
+    countBy,
+    empty,
+    equals,
+    filter,
+    head,
+    identity,
+    includes,
+    sortObject,
+    tail,
+    toPairs,
+} from 'rambdax'
 import escapeRegexp from 'escape-string-regexp'
 
-const valueSorter = (propA, propB, valueA, valueB) => valueA > valueB ? -1 : 1
-
-function notBodySize (node) {
-    const body = document.body
-    const sameWidth = R.equals(body.scrollWidth, node.scrollWidth)
-    const sameHeight = R.equals(body.scrollHeight, node.scrollHeight)
-
-    return !(sameWidth && sameHeight)
-}
-
-function isVertical (elem) {
-    return elem.offsetHeight > elem.offsetWidth
-}
-
-function isVisible (node) {
-    return !!(node.offsetWidth || node.offsetHeight || node.getClientRects().length)
-}
-
-// From https://youmightnotneedjquery.com/#parents
-function parents (node, selector) {
-    const parents = []
-
-    while ((node = node.parentNode) && node !== document) {
-        if (!selector || node.matches(selector)) parents.push(node)
-    }
-
-    return parents
-}
+import {
+    isVisible,
+    isVertical,
+    parents,
+    sameScrollSize,
+} from '@js/lib/dom'
+import { valueSorter } from '@js/lib/utils'
 
 function findContainers () {
     const nodes = [...document.querySelectorAll(':nth-child(5)')].map(n => n.parentNode)
@@ -38,31 +28,31 @@ function findContainers () {
     return nodes.filter(
         node => isVisible(node) &&
             isVertical(node) &&
-            notBodySize(node)
+            !sameScrollSize(document.body, node)
     )
 }
 
 function findSimilarElements (container) {
     const excludedTags = ['SCRIPT', 'IFRAME', 'STYLE']
-    const children = Array.from(container.childNodes).filter((node) => !R.includes(node.tagName, excludedTags))
+    const children = Array.from(container.childNodes).filter((node) => !includes(node.tagName, excludedTags))
     const classes = children.map((node) => [node.tagName, ...node.classList])
-    const counts = R.countBy(R.identity, classes)
-    const sorted = R.sortObject(valueSorter, counts)
-    const top = R.head(R.toPairs(sorted))
-    const spec = (R.head(top) || '').split(',')
-    const tagName = R.head(spec)
-    const classList = R.tail(spec)
+    const counts = countBy(identity, classes)
+    const sorted = sortObject(valueSorter, counts)
+    const top = head(toPairs(sorted))
+    const spec = (head(top) || '').split(',')
+    const tagName = head(spec)
+    const classList = tail(spec)
 
     if (top[1] === 1) {
         console.debug('[UFC] no similar elements found', { sorted })
         return []
     }
 
-    const similar = R.filter((node) => {
-        const sameTag = R.equals(tagName, node.tagName)
-        const sameClasses = R.equals(classList, Array.from(node.classList))
+    const similar = filter((node) => {
+        const sameTag = equals(tagName, node.tagName)
+        const sameClasses = equals(classList, Array.from(node.classList))
 
-        if (R.empty(classList)) {
+        if (empty(classList)) {
             return sameTag
         }
 
