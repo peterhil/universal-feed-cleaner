@@ -18,6 +18,15 @@
     /* display: none !important; */
     position: relative;
     background: pink;
+    max-height: 1.5em;
+    overflow: hidden;
+}
+
+[data-ufc="container"] [data-ufc-status="hidden"]:before {
+    display: block;
+    width: 100%;
+    content: attr(data-ufc-reason);
+    color: hotpink;
 }
 
 [data-ufc="container"] [data-ufc-status="hidden"]:after {
