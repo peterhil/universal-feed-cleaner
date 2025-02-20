@@ -47,6 +47,7 @@ const copyAssets = [
     copy({
         targets: [{
             src: [
+                'src/css/content.css',
                 'src/manifest.json',
             ],
             dest: outputDir(),
@@ -60,10 +61,20 @@ const watch = {
     chokidar: true,
     clearScreen: true,
     exclude: ['node_modules/**'],
-    include: ['src/**/*'],
+    include: ['src/**/*', 'src/css/content.css'],
 }
 
 export default [
+    {
+        input: 'src/js/background/script.js',
+        output: {
+            dir: outputDir('js/background'),
+            format,
+            sourcemap,
+        },
+        plugins,
+        watch,
+    },
     {
         input: 'src/js/content/main.js',
         output: {

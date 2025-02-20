@@ -1,0 +1,21 @@
+[data-ufc] {
+    outline-offset: -3px;
+}
+
+[data-ufc="container"] {
+    outline: 3px solid lime;
+}
+
+[data-ufc="element"] {
+    outline: 3px solid yellow;
+}
+
+[data-ufc="wrapper"] {
+    outline: 3px solid cyan;
+}
+
+/* TODO Only mark elements hidden within containers */
+[data-ufc="container"] [data-ufc-status="hidden"] summary {
+    padding: 0.5em;
+    background: pink;
+}
