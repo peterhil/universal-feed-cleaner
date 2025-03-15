@@ -4,6 +4,11 @@ import { defineConfig } from 'wxt'
 export default defineConfig({
     srcDir: 'src',
     extensionApi: 'webextension-polyfill',
+    imports: {
+        eslintrc: {
+            enabled: 8,
+        },
+    },
     modules: ['@wxt-dev/module-svelte'],
     manifest: {
         name: 'Universal feed cleaner',

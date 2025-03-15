@@ -1,5 +1,8 @@
 module.exports = {
-    extends: 'standard',
+    extends: [
+        'standard',
+        './.wxt/eslintrc-auto-import.json',
+    ],
     parser: '@babel/eslint-parser',
     parserOptions: {
         ecmaVersion: 2019,
@@ -14,7 +17,7 @@ module.exports = {
         browser: true,
     },
     globals: {
-        chrome: 'readonly',
+        browser: 'readonly',
     },
     rules: {
         'brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
