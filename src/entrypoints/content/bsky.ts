@@ -19,8 +19,8 @@ import {
     isVertical,
     parents,
     sameScrollSize,
-} from '../../lib/dom'
-import { iUniq, valueSorter } from '../../lib/utils'
+} from '~/lib/dom'
+import { iUniq, valueSorter } from '~/lib/utils'
 
 function findContainers () {
     const nodes = [...document.querySelectorAll(':nth-child(5)')].map(n => n.parentNode)
