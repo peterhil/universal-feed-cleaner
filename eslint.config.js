@@ -1,5 +1,3 @@
-// import standard from 'eslint-config-standard'
-
 import parser from '@babel/eslint-parser'
 import pluginJs from '@eslint/js'
 import tseslint from 'typescript-eslint'
@@ -43,5 +41,4 @@ export default defineConfig([
     pluginJs.configs.recommended,
     importPlugin.flatConfigs.recommended,
     ...tseslint.configs.recommended,
-    // standard,
 ])
