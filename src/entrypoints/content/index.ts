@@ -2,8 +2,8 @@
 
 import './style.css'
 
-import { main as bsky, onMessage } from './bsky.ts'
-import { main as universal } from './universal.ts'
+import { main as bsky, onMessage } from './bsky'
+import { main as universal } from './universal'
 
 export default defineContentScript({
     matches: ['<all_urls>'],

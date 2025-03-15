@@ -126,7 +126,7 @@ function checkElement (node) {
     const flags = 'giu'
     const pattern = '(' + triggers.map(escapeRegexp).join('|') + ')'
     const re = new RegExp(pattern, flags)
-    const status = re.test(node.innerText, re) ? 'hidden' : 'checked'
+    const status = re.test(node.innerText) ? 'hidden' : 'checked'
 
     if (status === 'hidden') {
         const matches = iUniq([...node.innerText.match(re)].sort())
