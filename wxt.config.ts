@@ -3,7 +3,7 @@ import { defineConfig } from 'wxt'
 // See https://wxt.dev/api/config.html
 export default defineConfig({
     srcDir: 'src',
-    extensionApi: 'chrome',
+    extensionApi: 'webextension-polyfill',
     modules: ['@wxt-dev/module-svelte'],
     manifest: {
         name: 'Universal feed cleaner',
