@@ -1,4 +1,3 @@
-import parser from '@babel/eslint-parser'
 import pluginJs from '@eslint/js'
 import tseslint from 'typescript-eslint'
 
@@ -14,14 +13,10 @@ export default defineConfig([
             "**/*.{js,mjs,cjs,ts}"
         ],
         languageOptions: {
-            parser,
             parserOptions: {
-                ecmaVersion: 'latest',
                 ecmaFeatures: {
                     impliedstrict: true,
                 },
-                requireConfigFile: false,
-                sourceType: 'module',
             },
         },
         "plugins": {
