@@ -1,15 +1,16 @@
+// import standard from 'eslint-config-standard'
+
 import parser from '@babel/eslint-parser'
 import pluginJs from '@eslint/js'
+import tseslint from 'typescript-eslint'
 
 import importPlugin from 'eslint-plugin-import'
 import n from 'eslint-plugin-n'
 import promise from 'eslint-plugin-promise'
 
-import standard from 'eslint-config-standard'
-import tseslint from 'typescript-eslint'
+import { defineConfig } from 'eslint/config'
 
-/** @type {import('eslint').Linter.Config[]} */
-export default [
+export default defineConfig([
     {
         files: [
             "**/*.{js,mjs,cjs,ts}"
@@ -42,5 +43,5 @@ export default [
     pluginJs.configs.recommended,
     importPlugin.flatConfigs.recommended,
     ...tseslint.configs.recommended,
-    // ...standard.configs.recommended,
-]
+    // standard,
+])
