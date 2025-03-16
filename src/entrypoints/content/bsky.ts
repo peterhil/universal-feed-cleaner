@@ -5,7 +5,7 @@ import { markContainers } from '~/lib/marking'
 import { options } from '~/lib/options'
 import { iUniq } from '~/lib/utils'
 
-function wrapIntoDetails (node, reason) {
+function wrapIntoDetails (node: HTMLElement, reason: string): void {
     const children = node.childNodes
     const details = document.createElement('details')
     const summary = document.createElement('summary')
@@ -16,41 +16,52 @@ function wrapIntoDetails (node, reason) {
     node.replaceChildren(details)
 }
 
-function checkElement (node) {
+function buildRegex (keywords: string[]): Regexp {
     const flags = 'giu'
-    const pattern = '(' + options.triggers.map(escapeRegexp).join('|') + ')'
-    const re = new RegExp(pattern, flags)
+    const pattern = '(' + keywords.map(escapeRegexp).join('|') + ')'
+
+    return new RegExp(pattern, flags)
+}
+
+function getReason (re: Regexp, node: HTMLElement): string {
+    const matches = iUniq([...node.innerText.match(re)].sort())
+    const reason = [...matches].join(', ')
+
+    return reason
+}
+
+function checkElement (re: Regexp, node: HTMLElement): string {
     const status = re.test(node.innerText) ? 'hidden' : 'checked'
 
     if (status === 'hidden') {
-        const matches = iUniq([...node.innerText.match(re)].sort())
-        const reason = [...matches].join(', ')
+        const reason = getReason(re, node)
 
-        // console.debug('[UFC] Matches:', { node, reason })
         node.dataset.ufcReason = reason
-
         wrapIntoDetails(node, reason)
     }
-
     node.dataset.ufcStatus = status
+
+    return reason
 }
 
-function hideElements () {
-    // TODO Find elements within a container given as input
-    const selector = '[data-ufc="container"] [data-ufc="element"]:not([data-ufc-status])'
-    const newElements = document.querySelectorAll(selector)
+function hideElements (): void {
+    // TODO Find elements within a container given as input context
+    const newElements = document.querySelectorAll(
+        '[data-ufc="container"] [data-ufc="element"]:not([data-ufc-status])'
+    )
+    const regex = buildRegex(options.triggers)
 
-    newElements.forEach(checkElement)
+    newElements.forEach((node) => checkElement(regex, node))
 }
 
-export async function main () {
+export async function main (): void {
     const containers = await findContainers(options.minChildCount)
     // TODO Return containers without wrappers and use with hideElements
     await markContainers(containers)
     await hideElements()
 }
 
-export function onMessage (request, sender) {
+export function onMessage (request, sender): void {
     if (request.type === 'xhr') {
         main()
     }
