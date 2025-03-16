@@ -2,6 +2,7 @@ import escapeRegexp from 'escape-string-regexp'
 
 import { findContainers } from '~/lib/dom'
 import { markContainers } from '~/lib/marking'
+import { options } from '~/lib/options'
 import { iUniq } from '~/lib/utils'
 
 function wrapIntoDetails (node, reason) {
@@ -16,13 +17,8 @@ function wrapIntoDetails (node, reason) {
 }
 
 function checkElement (node) {
-    const triggers = [
-        'Elon Musk',
-        'Trump',
-        'woke',
-    ]
     const flags = 'giu'
-    const pattern = '(' + triggers.map(escapeRegexp).join('|') + ')'
+    const pattern = '(' + options.triggers.map(escapeRegexp).join('|') + ')'
     const re = new RegExp(pattern, flags)
     const status = re.test(node.innerText) ? 'hidden' : 'checked'
 
@@ -48,8 +44,7 @@ function hideElements () {
 }
 
 export async function main () {
-    const minChildCount = 5  // TODO Move to options?
-    const containers = await findContainers(minChildCount)
+    const containers = await findContainers(options.minChildCount)
     // TODO Return containers without wrappers and use with hideElements
     await markContainers(containers)
     await hideElements()
