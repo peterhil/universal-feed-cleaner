@@ -16,25 +16,26 @@ function wrapIntoDetails (node: HTMLElement, reason: string): void {
     node.replaceChildren(details)
 }
 
-function buildRegex (keywords: string[]): Regexp {
+function buildRegex (keywords: string[]): RegExp {
     const flags = 'giu'
     const pattern = '(' + keywords.map(escapeRegexp).join('|') + ')'
 
     return new RegExp(pattern, flags)
 }
 
-function getReason (re: Regexp, node: HTMLElement): string {
+function getReason (re: RegExp, node: HTMLElement): string {
     const matches = iUniq([...node.innerText.match(re)].sort())
     const reason = [...matches].join(', ')
 
     return reason
 }
 
-function checkElement (re: Regexp, node: HTMLElement): string {
+function checkElement (re: RegExp, node: HTMLElement): string | null {
     const status = re.test(node.innerText) ? 'hidden' : 'checked'
+    let reason = null
 
     if (status === 'hidden') {
-        const reason = getReason(re, node)
+        reason = getReason(re, node)
 
         node.dataset.ufcReason = reason
         wrapIntoDetails(node, reason)
@@ -54,7 +55,7 @@ function hideElements (): void {
     newElements.forEach((node) => checkElement(regex, node))
 }
 
-export async function main (): void {
+export async function main (): Promise<void> {
     const containers = await findContainers(options.minChildCount)
     // TODO Return containers without wrappers and use with hideElements
     await markContainers(containers)
