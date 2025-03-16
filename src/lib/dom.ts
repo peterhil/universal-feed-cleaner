@@ -39,8 +39,9 @@ export function parents (node, selector) {
     return parents
 }
 
-export function findContainers () {
-    const nodes = [...document.querySelectorAll(':nth-child(5)')].map(n => n.parentNode)
+export function findContainers (minChildCount) {
+    const nthChilds = document.querySelectorAll(`:nth-child(${ minChildCount })`)
+    const nodes = [...nthChilds].map(n => n.parentNode)
 
     return nodes.filter(
         node => isVisible(node) &&

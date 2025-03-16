@@ -48,7 +48,8 @@ function hideElements () {
 }
 
 export async function main () {
-    const containers = await findContainers()
+    const minChildCount = 5  // TODO Move to options?
+    const containers = await findContainers(minChildCount)
     // TODO Return containers without wrappers and use with hideElements
     await markContainers(containers)
     await hideElements()
