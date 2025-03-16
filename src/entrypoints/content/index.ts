@@ -1,4 +1,4 @@
-/* global browser, document */
+/* global document */
 
 import './style.css'
 

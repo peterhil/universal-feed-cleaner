@@ -8,6 +8,8 @@ import promise from "eslint-plugin-promise"
 
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript"
 
+import autoImports from './.wxt/eslint-auto-imports.mjs'
+
 const languageOptions = {
     parserOptions: {
         ecmaVersion: 'latest',  // or a year
@@ -37,6 +39,7 @@ const rules = {
 }
 
 export default tseslint.config([
+      autoImports,
     js.configs.recommended,
     {
         files: ["**/*.{js,mjs,cjs}"],

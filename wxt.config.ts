@@ -6,7 +6,7 @@ export default defineConfig({
     extensionApi: 'webextension-polyfill',
     imports: {
         eslintrc: {
-            enabled: 8,
+            enabled: 'auto',
         },
     },
     modules: ['@wxt-dev/module-svelte'],
