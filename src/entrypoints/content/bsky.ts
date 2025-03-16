@@ -1,50 +1,8 @@
 import escapeRegexp from 'escape-string-regexp'
 
-import { findContainers, findSimilarElements, parents } from '~/lib/dom'
+import { findContainers } from '~/lib/dom'
 import { markContainers } from '~/lib/marking'
 import { iUniq } from '~/lib/utils'
-
-function markElement (node) {
-    if (node.dataset.ufc === 'element') {
-        return
-    }
-
-    node.dataset.ufc = 'element'
-}
-
-function markContainer (node) {
-    // Skip if child count is unchanged
-    if (node.childElementCount.toString() === node.dataset.ufcChildElementCount) {
-        return
-    }
-
-    const mostCommon = findSimilarElements(node)
-
-    if (mostCommon.length <= 1) {
-        return
-    }
-
-    node.dataset.ufc = 'container'
-
-    mostCommon.forEach(markElement)
-
-    node.dataset.ufcChildElementCount = node.childElementCount
-}
-
-function markWrapper (node) {
-    if (node.dataset.ufc !== 'container') return
-
-    const parentContainers = parents(node, '[data-ufc="container"]')
-
-    parentContainers.forEach(node => {
-        node.dataset.ufc = 'wrapper'
-    })
-}
-
-async function markContainers (containers) {
-    containers.forEach(markContainer)
-    containers.forEach(markWrapper)
-}
 
 function wrapIntoDetails (node, reason) {
     const children = node.childNodes
