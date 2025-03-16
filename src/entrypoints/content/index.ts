@@ -2,8 +2,8 @@
 
 import './style.css'
 
-import { main as bsky, onMessage } from './bsky'
-import { main as universal } from './universal'
+import { main as universal, onMessage } from './universal'
+import { main as noop } from './noop'
 
 export default defineContentScript({
     matches: ['<all_urls>'],
@@ -14,11 +14,11 @@ export default defineContentScript({
         console.log('Hello content.')
 
         if (location.match('bsky.app')) {
-            bsky()
+            universal()
             browser.runtime.onMessage.addListener(onMessage)
         }
         else {
-            universal()
+            noop()
         }
     },
 })
