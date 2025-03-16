@@ -1,8 +1,6 @@
-/* global document */
+/* global browser, document */
 
 import './style.css'
-
-import { browser } from 'webextension-polyfill'
 
 import { main as universal, onMessage } from './universal'
 import { main as noop } from './noop'

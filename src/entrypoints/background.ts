@@ -1,4 +1,4 @@
-import { browser } from 'webextension-polyfill'
+/* global browser */
 
 function onRequestCompleted (details) {
     if (details.method === 'GET' && details.type === 'xmlhttprequest') {
