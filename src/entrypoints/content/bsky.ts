@@ -1,68 +1,8 @@
-/* global browser */
-
-import {
-    countBy,
-    empty,
-    equals,
-    filter,
-    head,
-    identity,
-    includes,
-    sortObject,
-    tail,
-    toPairs,
-} from 'rambdax'
 import escapeRegexp from 'escape-string-regexp'
 
-import {
-    isVisible,
-    isVertical,
-    parents,
-    sameScrollSize,
-} from '~/lib/dom'
-import { iUniq, valueSorter } from '~/lib/utils'
-
-function findContainers () {
-    const nodes = [...document.querySelectorAll(':nth-child(5)')].map(n => n.parentNode)
-
-    return nodes.filter(
-        node => isVisible(node) &&
-            isVertical(node) &&
-            !sameScrollSize(document.body, node)
-    )
-}
-
-function findSimilarElements (container) {
-    const excludedTags = ['SCRIPT', 'IFRAME', 'STYLE']
-    const children = Array.from(container.childNodes).filter((node) => !includes(node.tagName, excludedTags))
-    const classes = children.map((node) => [node.tagName, ...node.classList])
-    const counts = countBy(identity, classes)
-    const sorted = sortObject(valueSorter, counts)
-    const top = head(toPairs(sorted))
-    const spec = (head(top) || '').split(',')
-    const tagName = head(spec)
-    const classList = tail(spec)
-
-    if (top[1] === 1) {
-        console.debug('[UFC] no similar elements found', { sorted })
-        return []
-    }
-
-    const similar = filter((node) => {
-        const sameTag = equals(tagName, node.tagName)
-        const sameClasses = equals(classList, Array.from(node.classList))
-
-        if (empty(classList)) {
-            return sameTag
-        }
-
-        return sameTag && sameClasses
-    }, children)
-
-    console.log('[UFC] findSimilarElements:', container, { similar, top, sorted, tagName, classList })
-
-    return similar
-}
+import { findContainers, findSimilarElements, parents } from '~/lib/dom'
+import { markContainers } from '~/lib/marking'
+import { iUniq } from '~/lib/utils'
 
 function markElement (node) {
     if (node.dataset.ufc === 'element') {
@@ -143,21 +83,17 @@ function checkElement (node) {
 
 function hideElements () {
     // TODO Find elements within a container given as input
-    const newElements = document.querySelectorAll('[data-ufc="container"] [data-ufc="element"]:not([data-ufc-status])')
+    const selector = '[data-ufc="container"] [data-ufc="element"]:not([data-ufc-status])'
+    const newElements = document.querySelectorAll(selector)
 
     newElements.forEach(checkElement)
 }
 
-async function processContents () {
+export async function main () {
     const containers = await findContainers()
     // TODO Return containers without wrappers and use with hideElements
     await markContainers(containers)
     await hideElements()
-}
-
-export function main () {
-    console.debug('[UFC] Sky is blue!')
-    processContents()
 }
 
 export function onMessage (request, sender) {
