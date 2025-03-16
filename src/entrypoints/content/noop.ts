@@ -1,3 +1,5 @@
+/* global console, document */
+
 export function main () {
-    console.log('[UFC] noop.ts on', document.location.href)
+    console.debug('[UFC] noop.ts on', document.location.href)
 }

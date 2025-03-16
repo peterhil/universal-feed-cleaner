@@ -1,3 +1,5 @@
+/* global console, document */
+
 import {
     countBy,
     empty,
@@ -40,7 +42,7 @@ export function parents (node, selector) {
 }
 
 export function findContainers (minChildCount) {
-    const nthChilds = document.querySelectorAll(`:nth-child(${ minChildCount })`)
+    const nthChilds = document.querySelectorAll(`:nth-child(${ minChildCount }))`)
     const nodes = [...nthChilds].map(n => n.parentNode)
 
     return nodes.filter(

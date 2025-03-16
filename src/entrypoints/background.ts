@@ -1,11 +1,11 @@
-/* global browser */
+import { browser } from 'webextension-polyfill'
 
 function onRequestCompleted (details) {
     if (details.method === 'GET' && details.type === 'xmlhttprequest') {
         const message = { type: 'xhr', details }
         const tabId = details.tabId
 
-        console.info('XHR completed:', details)
+        // console.debug('XHR completed:', details)
 
         if (tabId >= 0) {
             // Note: You can also use a connection-based approach to exchange messages.
@@ -18,7 +18,7 @@ function onRequestCompleted (details) {
 }
 
 export default defineBackground(() => {
-    console.log('[UFC]: background script', { id: browser.runtime.id })
+    // console.debug('[UFC]: background script', { id: browser.runtime.id })
 
     browser.webRequest.onCompleted.addListener(
         onRequestCompleted,
