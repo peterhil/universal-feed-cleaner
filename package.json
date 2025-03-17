@@ -1,34 +1,48 @@
 {
-    "name": "universal-feed-cleaner",
-    "description": "Hide social media and other feed contents by keywords to have some peace of mind.",
-    "version": "0.1",
-    "author": "Peter Hillerström <peter.hillerstrom@gmail.com>",
-    "license": "MPL-2.0",
-    "type": "module",
-    "scripts": {
-        "build": "rm -rf dist/* && NODE_ENV=production rollup -c",
-        "dev": "rm -rf dev/* && NODE_ENV=development rollup -cw",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "devDependencies": {
-        "@babel/core": "^7.11.0",
-        "@babel/eslint-parser": "^7.23.3",
-        "@rollup/plugin-alias": "^5.1.0",
-        "@rollup/plugin-commonjs": "^25.0.7",
-        "@rollup/plugin-eslint": "^9.0.5",
-        "@rollup/plugin-node-resolve": "^15.2.3",
-        "@rollup/plugin-terser": "^0.4.4",
-        "eslint": "^8.56.0",
-        "eslint-config-standard": "^17.1.0",
-        "eslint-plugin-import": "^2.25.2",
-        "eslint-plugin-n": "^15.0.0 || ^16.0.0",
-        "eslint-plugin-promise": "^6.0.0",
-        "rollup": "^4.22.4",
-        "rollup-plugin-copy": "^3.5.0"
-    },
-    "dependencies": {
-        "escape-string-regexp": "^5.0.0",
-        "jquery": "^3.7.1",
-        "rambdax": "^11.3.1"
-    }
+  "name": "universal-feed-cleaner",
+  "description": "Hide social media and other feed contents by keywords to have some peace of mind.",
+  "version": "0.1",
+  "type": "module",
+  "author": "Peter Hillerström <peter.hillerstrom@gmail.com>",
+  "license": "MPL-2.0",
+  "scripts": {
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "postinstall": "wxt prepare"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@tsconfig/svelte": "^5.0.4",
+    "@wxt-dev/module-svelte": "^2.0.0",
+    "eslint": "^9.22.0",
+    "eslint-import-resolver-typescript": "^3.9.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-import-x": "^4.8.0",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "globals": "^16.0.0",
+    "svelte": "^5.1.16",
+    "svelte-check": "^4.0.7",
+    "tslib": "^2.8.1",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.26.1",
+    "wxt": "^0.19.29"
+  },
+  "dependencies": {
+    "escape-string-regexp": "^5.0.0",
+    "rambdax": "^11.3.1",
+    "webextension-polyfill": "^0.12.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "dtrace-provider",
+      "esbuild",
+      "spawn-sync"
+    ]
+  }
 }
