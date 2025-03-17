@@ -1,4 +1,4 @@
-import { findSimilarElements, parents } from '~/lib/dom'
+import { findSimilarElements, parents } from '$lib/dom'
 
 function markElement (node) {
     if (node.dataset.ufc === 'element') {

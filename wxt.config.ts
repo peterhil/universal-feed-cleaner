@@ -3,6 +3,9 @@ import { defineConfig } from 'wxt'
 // See https://wxt.dev/api/config.html
 export default defineConfig({
     srcDir: 'src',
+    alias: {
+        $lib: './src/lib',
+    },
     extensionApi: 'webextension-polyfill',
     imports: {
         eslintrc: {

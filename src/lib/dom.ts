@@ -13,7 +13,7 @@ import {
     toPairs,
 } from 'rambdax'
 
-import { valueSorter } from '~/lib/utils'
+import { valueSorter } from '$lib/utils'
 
 export function isVertical (elem) {
     return elem.offsetHeight > elem.offsetWidth
