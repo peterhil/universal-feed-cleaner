@@ -1,4 +1,5 @@
 import escapeRegexp from 'escape-string-regexp'
+import { debounce } from 'rambdax'
 
 import { findContainers } from '~/lib/dom'
 import { markContainers } from '~/lib/marking'
@@ -57,13 +58,16 @@ function hideElements (): void {
 
 export async function main (): Promise<void> {
     const containers = await findContainers(options.minChildCount)
+    console.debug('[UFC] Universal main containers:', { containers })
     // TODO Return containers without wrappers and use with hideElements
     await markContainers(containers)
     await hideElements()
 }
 
+const debouncedMain = debounce(main, 1000)
+
 export function onMessage (request, sender): void {
     if (request.type === 'xhr') {
-        main()
+        debouncedMain()
     }
 }
