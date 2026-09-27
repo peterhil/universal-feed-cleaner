@@ -5,6 +5,7 @@ import {
     empty,
     equals,
     filter,
+    groupBy,
     head,
     identity,
     includes,
@@ -13,7 +14,7 @@ import {
     toPairs,
 } from 'rambdax'
 
-import { valueSorter } from '$lib/utils'
+import { lengthSorter, valueSorter } from '$lib/utils'
 
 export function isVertical (elem) {
     return elem.offsetHeight > elem.offsetWidth
@@ -74,31 +75,18 @@ export function findContainers (minChildCount) {
 export function findSimilarElements (container) {
     const excludedTags = ['SCRIPT', 'IFRAME', 'STYLE']
     const children = Array.from(container.childNodes).filter((node) => !includes(node.tagName, excludedTags))
-    const classes = children.map((node) => [node.tagName, ...node.classList])
-    const counts = countBy(identity, classes)
-    const sorted = sortObject(valueSorter, counts)
-    const top = head(toPairs(sorted))
-    const spec = (head(top) || '').split(',')
-    const tagName = head(spec)
-    const classList = tail(spec)
 
-    if (top[1] === 1) {
-        console.debug('[UFC] no similar elements found', { sorted })
+    const similar = groupBy(
+        (node) => [node.tagName, ...Array.from(node.classList).sort()].join(','),
+        children
+    )
+    const mostCommon = head(toPairs(sortObject(lengthSorter, similar)))[1]
+
+    if (mostCommon.length === 1) {
+        console.debug('[UFC] no similar elements found', { mostCommon })
         return []
     }
 
-    const similar = filter((node) => {
-        const sameTag = equals(tagName, node.tagName)
-        const sameClasses = equals(classList, Array.from(node.classList))
-
-        if (empty(classList)) {
-            return sameTag
-        }
-
-        return sameTag && sameClasses
-    }, children)
-
-    console.log('[UFC] findSimilarElements:', container, { similar, top, sorted, tagName, classList })
-
-    return similar
+    console.debug('[UFC] grouped similar:', { mostCommon })
+    return mostCommon
 }
