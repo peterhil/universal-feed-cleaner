@@ -83,10 +83,8 @@ export function findSimilarElements (container) {
     const mostCommon = head(toPairs(sortObject(lengthSorter, similar)))[1]
 
     if (mostCommon.length === 1) {
-        console.debug('[UFC] no similar elements found', { mostCommon })
         return []
     }
 
-    console.debug('[UFC] grouped similar:', { mostCommon })
     return mostCommon
 }
