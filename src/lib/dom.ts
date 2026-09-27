@@ -41,11 +41,30 @@ export function parents (node, selector) {
     return parents
 }
 
-export function findContainers (minChildCount) {
-    const nthChilds = document.querySelectorAll(`:nth-child(${ minChildCount })`)
-    const nodes = [...nthChilds].map(n => n.parentNode)
+export function findNodesBy (filterFn) {
+    const nodeIterator = document.createNodeIterator(
+        document.body,
+        NodeFilter.SHOW_ELEMENT,
+        filterFn,
+    )
+    const nodes = []
+    let currentNode
 
-    return nodes.filter(
+    while ((currentNode = nodeIterator.nextNode())) {
+        nodes.push(currentNode)
+    }
+
+    return nodes
+}
+
+export function findContainers (minChildCount) {
+    const containers = findNodesBy(
+        (node) =>
+            node.childElementCount >= minChildCount
+            ? NodeFilter.FILTER_ACCEPT
+            : NodeFilter.FILTER_REJECT
+    )
+    return containers.filter(
         node => isVisible(node) &&
             isVertical(node) &&
             !sameScrollSize(document.body, node)
