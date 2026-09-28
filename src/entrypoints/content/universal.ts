@@ -66,7 +66,7 @@ export async function main (): Promise<void> {
 
 const debouncedMain = debounce(main, 1000)
 
-export function onMessage (request, sender): void {
+export function onRequest (request, sender): void {
     if (request.type === 'xhr') {
         debouncedMain()
     }

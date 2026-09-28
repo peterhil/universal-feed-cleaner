@@ -2,7 +2,7 @@
 
 import './style.css'
 
-import { main as universal, onMessage } from './universal'
+import { main as universal, onRequest } from './universal'
 import { main as noop } from './noop'
 
 export default defineContentScript({
@@ -13,7 +13,7 @@ export default defineContentScript({
 
         if (location.match('bsky.app')) {
             universal()
-            browser.runtime.onMessage.addListener(onMessage)
+            browser.runtime.onMessage.addListener(onRequest)
         }
         else {
             noop()
