@@ -1,6 +1,6 @@
 /* global document */
 
-// import './options.css'
+import './options.css'
 
 import OptionsPage from './OptionsPage.svelte'
 import { mount } from 'svelte'
