@@ -3,7 +3,7 @@ import { debounce } from 'rambdax'
 
 import { findContainers } from '~/lib/dom'
 import { markContainers } from '~/lib/marking'
-import { options } from '~/lib/options'
+import { loadRules } from '~/lib/options'
 import { iUniq } from '~/lib/utils'
 
 function wrapIntoDetails (node: HTMLElement, reason: string): void {
@@ -49,23 +49,25 @@ function checkElement (re: RegExp, node: HTMLElement): string | null {
     return reason
 }
 
-function hideElements (): void {
+function hideElements (rules: object): void {
     // TODO Find elements within a container given as input context
     const newElements = document.querySelectorAll(
         '[data-ufc="container"] [data-ufc="element"]:not([data-ufc-status])'
     )
-    const regex = buildRegex(options.rules)
+    const regex = buildRegex(rules)
 
     newElements.forEach((node) => checkElement(regex, node))
 }
 
 export async function main (): Promise<void> {
     const minChildCount = 5
-    const containers = await findContainers(minChildCount)
-    console.debug('[UFC] Universal main containers:', { containers })
     // TODO Return containers without wrappers and use with hideElements
+    const containers = await findContainers(minChildCount)
+    const rules = await loadRules(document.location.host)
+    console.debug('[UFC] Universal main:', { containers, rules })
+
     await markContainers(containers)
-    await hideElements()
+    await hideElements(rules)
 }
 
 const debouncedMain = debounce(main, 1000)
