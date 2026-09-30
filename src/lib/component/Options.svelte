@@ -1,21 +1,23 @@
 <script lang="ts">
+    import { keys } from 'rambdax'
     import { options } from '$lib/options'
 
-    let keywords: string[] = [
-        'Alpha',
-        'Beta'
-    ]
+    const rules = options.rules
+    const sites = keys(rules)
 </script>
 
 <div>
     <h1>Options</h1>
 
-    <h2>Keywords</h2>
+    <h2>Keywords to hide</h2>
 
-    <textarea
-        placeholder="Add keywords, one per line"
-        rows="12"
-        bind:value={keywords}
-        >
-    </textarea>
+    {#each sites as site}
+        <h3>{site === '*' ? 'Any website' : site}</h3>
+
+        <ul>
+            {#each rules[site] as word}
+                <li>{word}</li>
+            {/each}
+        </ul>
+    {/each}
 </div>
