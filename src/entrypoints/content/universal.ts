@@ -60,7 +60,8 @@ function hideElements (): void {
 }
 
 export async function main (): Promise<void> {
-    const containers = await findContainers(options.minChildCount)
+    const minChildCount = 5
+    const containers = await findContainers(minChildCount)
     console.debug('[UFC] Universal main containers:', { containers })
     // TODO Return containers without wrappers and use with hideElements
     await markContainers(containers)
