@@ -1,21 +1,47 @@
-[data-ufc] {
-    outline-offset: -3px;
+:root {
+	color-scheme: light dark;
+
+    @media (prefers-color-scheme: light) {
+        --ufc-color-text: #1a1a1a;
+        --ufc-color-stripe: #f0f0f0;
+        --ufc-color-bg: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        --ufc-color-text: #fafafa;
+        --ufc-color-stripe: #00080f;
+        --ufc-color-bg: #1a2a3a;
+    }
 }
 
-[data-ufc="container"] {
-    outline: 3px solid lime;
+body.ufc-debug {
+    [data-ufc] {
+        outline-offset: -3px;
+    }
+
+    [data-ufc="container"] {
+        outline: 3px solid lime;
+    }
+
+    [data-ufc="element"] {
+        outline: 3px solid yellow;
+    }
+
+    [data-ufc="wrapper"] {
+        outline: 3px solid cyan;
+    }
 }
 
-[data-ufc="element"] {
-    outline: 3px solid yellow;
-}
+[data-ufc-status="hidden"] {
+    details[open] {
+        border-bottom: 3px solid var(--ufc-color-stripe);
+    }
 
-[data-ufc="wrapper"] {
-    outline: 3px solid cyan;
-}
-
-/* TODO Only mark elements hidden within containers */
-[data-ufc="container"] [data-ufc-status="hidden"] summary {
-    padding: 0.5em;
-    background: pink;
+    summary {
+        padding: 0.5em;
+        background: var(--ufc-color-bg);
+        background-image: linear-gradient(135deg, var(--ufc-color-stripe) 25%, var(--ufc-color-bg) 25%, var(--ufc-color-bg) 50%, var(--ufc-color-stripe) 50%, var(--ufc-color-stripe) 75%, var(--ufc-color-bg) 75%, var(--ufc-color-bg) 100%);
+        background-size: 31.5px 31.5px;
+        color: var(--ufc-color-text);
+    }
 }
