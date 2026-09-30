@@ -30,12 +30,6 @@ export default defineConfig({
                     'assets/content/universal.js',
                 ],
             },
-            {
-                matches: ['*://*.bsky.app/*'],
-                resources: [
-                    'assets/content/bsky.js',
-                ],
-            },
         ],
     },
 })

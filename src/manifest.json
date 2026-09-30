@@ -21,7 +21,6 @@
         }
     ],
     "web_accessible_resources": [
-        "js/content/bsky.js",
         "js/content/universal.js"
     ]
 }
