@@ -19,7 +19,10 @@ function wrapIntoDetails (node: HTMLElement, reason: string): void {
 
 function buildRegex (keywords: string[]): RegExp {
     const flags = 'giu'
-    const pattern = '(' + keywords.map(escapeRegexp).join('|') + ')'
+    const parts = keywords
+        .map(escapeRegexp)
+        .map((keyword) => `\\b${keyword}\\b`)
+    const pattern = '(' + parts.join('|') + ')'
 
     return new RegExp(pattern, flags)
 }
