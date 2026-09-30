@@ -16,7 +16,7 @@ export default defineConfig({
     manifest: {
         name: 'Universal feed cleaner',
         version: '0.1',
-        description: 'Hide triggering social media content behind a warning to have better peace of mind.',
+        description: 'Hide social media posts or other content behind collapsible elements.',
         permissions: [
             'https://*/',
             'storage',

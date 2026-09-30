@@ -54,7 +54,7 @@ function hideElements (): void {
     const newElements = document.querySelectorAll(
         '[data-ufc="container"] [data-ufc="element"]:not([data-ufc-status])'
     )
-    const regex = buildRegex(options.triggers)
+    const regex = buildRegex(options.rules)
 
     newElements.forEach((node) => checkElement(regex, node))
 }
