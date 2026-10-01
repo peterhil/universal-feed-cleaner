@@ -74,13 +74,19 @@ export function findContainers (minChildCount) {
 
 export function findSimilarElements (container) {
     const excludedTags = ['SCRIPT', 'IFRAME', 'STYLE']
-    const children = Array.from(container.childNodes).filter((node) => !includes(node.tagName, excludedTags))
-
+    const children = Array.from(container.childNodes).filter(
+        (node) => (!node.tagName || !includes(node.tagName, excludedTags))
+    )
     const similar = groupBy(
-        (node) => [node.tagName, ...Array.from(node.classList).sort()].join(','),
+        function grouper (node) {
+            return (node.classList
+                ? [node.tagName, ...[...node.classList].sort()].join(',')
+                : node.tagName)
+        },
         children
     )
     const mostCommon = head(toPairs(sortObject(lengthSorter, similar)))[1]
+    console.debug('[UFC] findSimilarElements:', { similar, mostCommon })
 
     if (mostCommon.length === 1) {
         return []
