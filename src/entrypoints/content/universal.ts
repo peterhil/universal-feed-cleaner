@@ -64,7 +64,9 @@ export async function main (): Promise<void> {
     // TODO Return containers without wrappers and use with hideElements
     const containers = await findContainers(minChildCount)
     const rules = await loadRules(document.location.host)
+
     console.debug('[UFC] Universal main:', { containers, rules })
+    document.body.classList.add('ufc-debug')
 
     await markContainers(containers)
     await hideElements(rules)
