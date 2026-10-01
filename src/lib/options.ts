@@ -11,6 +11,9 @@ export const options = {
             'Tekoäly',
             'Trump',
         ],
+        'facebook.com': [
+            'Reels',
+        ],
         'linkedin.com': [
             'Applied',
             'Java',
