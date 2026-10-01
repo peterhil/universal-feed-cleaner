@@ -70,10 +70,11 @@ export async function main (): Promise<void> {
     await hideElements(rules)
 }
 
-const debouncedMain = debounce(main, 1000)
-
-export function onRequest (request, sender): void {
+export function onRequestPlain (request, sender): void {
     if (request.type === 'xhr' && request.details.method === 'GET') {
-        debouncedMain()
+        console.debug('[UFC] Xhr request:', { request })
+        main()
     }
 }
+
+export const onRequest = debounce(onRequestPlain, 1000)
