@@ -88,7 +88,7 @@ export function findSimilarElements (container) {
     const mostCommon = head(toPairs(sortObject(lengthSorter, similar)))[1]
     console.debug('[UFC] findSimilarElements:', { similar, mostCommon })
 
-    if (mostCommon.length === 1) {
+    if (mostCommon.length <= 1) {
         return []
     }
 
