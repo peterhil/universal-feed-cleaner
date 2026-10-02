@@ -1,20 +1,16 @@
-/* global console, document */
+/* global NodeFilter, console, document */
 
 import {
-    countBy,
-    empty,
     equals,
     filter,
+    flatten,
     groupBy,
-    head,
-    identity,
     includes,
-    sortObject,
-    tail,
-    toPairs,
+    length,
+    map,
+    mean,
+    values,
 } from 'rambdax'
-
-import { lengthSorter, valueSorter } from '$lib/utils'
 
 const containerTags = [
     // -- Content sectioning
@@ -38,6 +34,10 @@ export function isVertical (elem) {
 
 export function isVisible (node) {
     return !!(node.offsetWidth || node.offsetHeight || node.getClientRects().length)
+}
+
+export function isBodyWide (node) {
+    return node.offsetWidth === document.body.offsetWidth
 }
 
 export function sameScrollSize (nodeA, nodeB) {
@@ -82,6 +82,7 @@ export function findContainers (minChildCount) {
                 && includes(node.tagName, containerTags)
                 && isVertical(node)
                 && isVisible(node)
+                && !isBodyWide(node)
                 && !sameScrollSize(document.body, node)
             return accept
                 ? NodeFilter.FILTER_ACCEPT
@@ -107,8 +108,9 @@ export function findSimilarElements (container) {
         children
     )
     // TODO If most common element counts are a tie include all of them
-    const mostCommon = head(toPairs(sortObject(lengthSorter, similar)))[1]
-    console.debug('[UFC] findSimilarElements:', { similar, mostCommon })
+    const limit = mean(values(map(length, similar)))
+    const mostCommon = flatten(filter(nodes => nodes.length >= limit, values(similar)))
+    console.debug('[UFC] findSimilarElements:', { mostCommon, similar, limit })
 
     if (mostCommon.length <= 1) {
         return []
