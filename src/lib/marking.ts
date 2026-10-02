@@ -1,3 +1,4 @@
+import { forEach, init } from 'rambdax'
 import { findSimilarElements, parents } from '$lib/dom'
 
 function markElement (node) {
@@ -30,10 +31,10 @@ function markWrapper (node) {
     if (node.dataset.ufc !== 'container') return
 
     const parentContainers = parents(node, '[data-ufc="container"]')
-
-    parentContainers.forEach(node => {
-        node.dataset.ufc = 'wrapper'
-    })
+    forEach(
+        (node) => node.dataset.ufc = 'wrapper',
+        init(parentContainers)
+    )
 }
 
 export async function markContainers (containers) {

@@ -16,6 +16,22 @@ import {
 
 import { lengthSorter, valueSorter } from '$lib/utils'
 
+const containerTags = [
+    // -- Content sectioning
+    'ARTICLE',
+    // 'ASIDE',
+    'MAIN',
+    'SECTION',
+    // -- Text content
+    'BLOCKQUOTE',
+    'DIV',
+    'FIGURE',
+    'UL',
+    // -- Tables
+    'TABLE',
+    'TBODY',
+]
+
 export function isVertical (elem) {
     return elem.offsetHeight > elem.offsetWidth
 }
@@ -60,31 +76,37 @@ export function findNodesBy (filterFn) {
 
 export function findContainers (minChildCount) {
     const containers = findNodesBy(
-        (node) =>
-            node.childElementCount >= minChildCount
-            ? NodeFilter.FILTER_ACCEPT
-            : NodeFilter.FILTER_REJECT
+        (node) => {
+            const accept =
+                node.childElementCount >= minChildCount
+                && includes(node.tagName, containerTags)
+                && isVertical(node)
+                && isVisible(node)
+                && !sameScrollSize(document.body, node)
+            return accept
+                ? NodeFilter.FILTER_ACCEPT
+                : NodeFilter.FILTER_REJECT
+        }
     )
-    return containers.filter(
-        node => isVisible(node) &&
-            isVertical(node) &&
-            !sameScrollSize(document.body, node)
-    )
+
+    console.debug('[UFC] findContainers:', { containers })
+    return containers
 }
 
 export function findSimilarElements (container) {
     const excludedTags = ['SCRIPT', 'IFRAME', 'STYLE']
-    const children = Array.from(container.childNodes).filter(
-        (node) => (!node.tagName || !includes(node.tagName, excludedTags))
+    const children = [...container.childNodes].filter(
+        (node) => (node.tagName && !includes(node.tagName, excludedTags))
     )
     const similar = groupBy(
         function grouper (node) {
-            return (node.classList
+            return (node.tagName && node.classList)
                 ? [node.tagName, ...[...node.classList].sort()].join(',')
-                : node.tagName)
+                : node.tagName
         },
         children
     )
+    // TODO If most common element counts are a tie include all of them
     const mostCommon = head(toPairs(sortObject(lengthSorter, similar)))[1]
     console.debug('[UFC] findSimilarElements:', { similar, mostCommon })
 
