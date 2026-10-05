@@ -18,6 +18,8 @@ export const options = {
         'linkedin.com': [
             'Applied',
             'Java',
+            'LLM',
+            'LLMs',
             'Php',
             'Promoted',
             'Viewed',
