@@ -21,6 +21,7 @@ export const options = {
             'LLM',
             'LLMs',
             'Php',
+            'Power platform',
             'Promoted',
             'Viewed',
         ],
