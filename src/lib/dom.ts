@@ -33,7 +33,7 @@ export function isVertical (elem) {
 }
 
 export function isVisible (node) {
-    return !!(node.offsetWidth || node.offsetHeight || node.getClientRects().length)
+    return !!(node.offsetWidth && node.offsetHeight)
 }
 
 export function isBodyWide (node) {
@@ -80,8 +80,8 @@ export function findContainers (minChildCount) {
             const accept =
                 node.childElementCount >= minChildCount
                 && includes(node.tagName, containerTags)
-                && isVertical(node)
                 && isVisible(node)
+                && isVertical(node)
                 && !isBodyWide(node)
                 && !sameScrollSize(document.body, node)
             return accept
