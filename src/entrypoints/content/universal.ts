@@ -14,7 +14,18 @@ function wrapIntoDetails (node: HTMLElement, reason: string): void {
     summary.innerText = reason // TODO Use spans?
 
     details.replaceChildren(summary, ...children)
-    node.replaceChildren(details)
+
+    if (node.tagName === 'TR') {
+        const tr = document.createElement('td')
+        const colspan = details.querySelectorAll('td').length
+
+        tr.setAttribute('colspan', colspan)
+        tr.replaceChildren(details)
+        node.replaceChildren(tr)
+    }
+    else {
+        node.replaceChildren(details)
+    }
 }
 
 function buildRegex (keywords: string[]): RegExp {
