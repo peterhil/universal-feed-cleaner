@@ -47,6 +47,12 @@ export function sameScrollSize (nodeA, nodeB) {
     return sameWidth && sameHeight
 }
 
+export function visibleChildren(container) {
+    return [...container.childNodes].filter(
+        node => node.offsetLeft >= 0 && node.offsetTop >= 0
+    )
+}
+
 // From https://youmightnotneedjquery.com/#parents
 export function parents (node, selector) {
     const parents = []
@@ -82,6 +88,7 @@ export function findContainers (minChildCount) {
                 && includes(node.tagName, containerTags)
                 && isVisible(node)
                 && isVertical(node)
+                && visibleChildren(node).length > minChildCount
                 && !isBodyWide(node)
                 && !sameScrollSize(document.body, node)
             return accept
