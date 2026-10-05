@@ -81,6 +81,7 @@ export function findNodesBy (filterFn) {
 }
 
 export function findContainers (minChildCount) {
+    const minContainerWidth = 50
     const containers = findNodesBy(
         (node) => {
             const accept =
@@ -88,6 +89,7 @@ export function findContainers (minChildCount) {
                 && includes(node.tagName, containerTags)
                 && isVisible(node)
                 && isVertical(node)
+                && node.offsetWidth >= minContainerWidth
                 && visibleChildren(node).length > minChildCount
                 && !isBodyWide(node)
                 && !sameScrollSize(document.body, node)
