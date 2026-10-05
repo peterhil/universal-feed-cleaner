@@ -12,6 +12,7 @@ export const options = {
             'Trump',
         ],
         'facebook.com': [
+            'Follow',
             'Reels',
         ],
         'linkedin.com': [
