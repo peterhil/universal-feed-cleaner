@@ -6,10 +6,7 @@
 </script>
 
 <main>
-    <h1>
-        Universal<br>
-        feed cleaner
-    </h1>
+    <h1>Obey – hide content!</h1>
 
     <div class="card">
         <button type="button" on:click={openOptionsPage}>
@@ -19,7 +16,7 @@
 
     <p class="help">
         Source code and instructions on
-        <a href="https://github.com/peterhil/universal-feed-cleaner/"
+        <a href="https://github.com/peterhil/obey/"
            target="_blank" rel="noreferrer">
             Github
         </a>

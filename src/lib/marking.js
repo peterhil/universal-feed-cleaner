@@ -2,12 +2,12 @@ import { forEach } from 'rambdax'
 import { findSimilarElements, parents } from '$lib/dom'
 
 function markElement (node) {
-    node.dataset.ufc = 'element'
+    node.dataset.obey = 'element'
 }
 
 function markContainer (node) {
     // Skip if child count is unchanged
-    if (node.childElementCount.toString() === node.dataset.ufcChildElementCount) {
+    if (node.childElementCount.toString() === node.dataset.obeyChildElementCount) {
         return
     }
 
@@ -17,19 +17,19 @@ function markContainer (node) {
         return
     }
 
-    node.dataset.ufc = 'container'
-    node.dataset.ufcChildElementCount = node.childElementCount
+    node.dataset.obey = 'container'
+    node.dataset.obeyChildElementCount = node.childElementCount
 
     mostCommon.forEach(markElement)
 }
 
 function markWrapper (node) {
-    if (node.dataset.ufc !== 'container') return
+    if (node.dataset.obey !== 'container') return
 
-    const parentContainers = parents(node, '[data-ufc="container"]')
+    const parentContainers = parents(node, '[data-obey="container"]')
 
     forEach(
-        (node) => node.dataset.ufc = 'wrapper',
+        (node) => node.dataset.obey = 'wrapper',
         parentContainers
     )
 }
