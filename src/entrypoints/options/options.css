@@ -1,5 +1,16 @@
 body {
+    padding: 1rem;
     font-family: sans-serif;
+}
+
+section.domain {
+    border: 1px solid #0cf;
+    margin-block: 0.75rem;
+    padding: 1rem;
+
+    h3 {
+        margin-block: 0.5rem 1rem;
+    }
 }
 
 .remove {
