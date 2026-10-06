@@ -1,5 +1,7 @@
 <script lang="ts">
     import { keys } from 'rambdax'
+
+    import OptionsKeyword from '$lib/component/OptionsKeyword.svelte'
     import { options } from '$lib/options'
 
     const rules = options.rules
@@ -16,7 +18,7 @@
 
         <ul>
             {#each rules[domain] as word}
-                <li>{word}</li>
+                <OptionsKeyword {word} {domain} />
             {/each}
         </ul>
     {/each}

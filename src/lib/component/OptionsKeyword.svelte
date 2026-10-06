@@ -1,0 +1,12 @@
+<script lang="ts">
+    let { domain, word } = $props()
+
+    function remove (word, domain) {
+        console.log('[UFC] Remove:', {word, domain})
+    }
+</script>
+
+<li>
+    {word}
+    <span class="remove" onclick={() => remove(word, domain)}>&times;</span>
+</li>
