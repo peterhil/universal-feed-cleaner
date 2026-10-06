@@ -4,17 +4,16 @@ import escapeRegexp from 'escape-string-regexp'
 import { debounce } from 'rambdax'
 
 import { findContainers } from '~/lib/dom'
-import { markContainers } from '~/lib/marking'
-import { loadRules } from '~/lib/options'
 import { iUniq } from '~/lib/utils'
+import { loadRules } from '~/lib/options'
+import { markContainers } from '~/lib/marking'
 
 function wrapIntoDetails (node, reason) {
     const children = node.childNodes
     const details = document.createElement('details')
     const summary = document.createElement('summary')
 
-    summary.innerText = reason // TODO Use spans?
-
+    summary.innerText = reason
     details.replaceChildren(summary, ...children)
 
     if (node.tagName === 'TR') {
@@ -32,8 +31,7 @@ function wrapIntoDetails (node, reason) {
 
 function buildRegex (keywords) {
     const flags = 'giu'
-    const parts = keywords
-        .map(escapeRegexp)
+    const parts = keywords.map(escapeRegexp)
     const pattern = '\\b(' + parts.join('|') + ')\\b'
 
     return new RegExp(pattern, flags)
@@ -52,7 +50,6 @@ function checkElement (re, node) {
 
     if (status === 'hidden') {
         reason = getReason(re, node)
-
         node.dataset.obeyReason = reason
         wrapIntoDetails(node, reason)
     }
@@ -73,7 +70,6 @@ function hideElements (rules) {
 
 export async function main () {
     const minChildCount = 5
-    // TODO Return containers without wrappers and use with hideElements
     const containers = await findContainers(minChildCount)
     const rules = await loadRules(document.location.host)
 
