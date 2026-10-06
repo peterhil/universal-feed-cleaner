@@ -1,5 +1,3 @@
-/* global browser, defineBackground */
-
 function onRequestCompleted (details) {
     if (details.method === 'GET' && details.type === 'xmlhttprequest') {
         const message = { type: 'xhr', details }
