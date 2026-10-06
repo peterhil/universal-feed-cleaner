@@ -15,7 +15,7 @@ export default defineConfig({
     modules: ['@wxt-dev/module-svelte'],
     manifest: {
         name: 'Obey - hide content!',
-        version: '0.1',
+        version: '0.2',
         description: 'Hide social media posts or other content behind collapsible elements.',
         permissions: [
             'https://*/',
