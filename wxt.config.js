@@ -24,7 +24,15 @@ export default defineConfig({
             'webRequest',
         ],
         browser_specific_settings: {
-            gecko: {id: 'obey@composed.nu'},
+            gecko: {
+                id: 'obey@composed.nu',
+                data_collection_permissions: {
+                    required: [
+                        "none"
+                    ]
+                },
+                strict_min_version: "58.0",
+            },
         },
         web_accessible_resources: [
             {
