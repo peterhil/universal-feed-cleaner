@@ -1,12 +1,9 @@
 import globals from "globals"
 import js from "@eslint/js"
-import tseslint from "typescript-eslint"
 
 import importPlugin from "eslint-plugin-import"
 import n from "eslint-plugin-n"
 import promise from "eslint-plugin-promise"
-
-import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript"
 
 import autoImports from './.wxt/eslint-auto-imports.mjs'
 
@@ -38,8 +35,8 @@ const rules = {
     "no-multiple-empty-lines": ["error", { max: 1, maxBOF: 0, maxEOF: 0 }],
 }
 
-export default tseslint.config([
-      autoImports,
+export default [
+    autoImports,
     js.configs.recommended,
     {
         files: ["**/*.{js,mjs,cjs}"],
@@ -47,22 +44,4 @@ export default tseslint.config([
         plugins,
         rules,
     },
-    {
-        files: ["**/*.{ts,tsx}"],
-        extends: [
-            importPlugin.flatConfigs.recommended,
-            importPlugin.flatConfigs.typescript,
-        ],
-        languageOptions,
-        plugins,
-        rules,
-        settings: {
-            "import-x/resolver-next": [
-                createTypeScriptImportResolver({
-                    alwaysTryTypes: true,
-                    project: "./tsconfig.json",
-                }),
-            ],
-        },
-    }
-])
+]

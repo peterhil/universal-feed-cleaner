@@ -1,3 +1,5 @@
+/* global console, document */
+
 import escapeRegexp from 'escape-string-regexp'
 import { debounce } from 'rambdax'
 
@@ -82,7 +84,7 @@ export async function main () {
     await hideElements(rules)
 }
 
-export function onRequestPlain (request, sender) {
+export function onRequestPlain (request) {
     if (request.type === 'xhr' && request.details.method === 'GET') {
         console.debug('[UFC] Xhr request:', { request })
         main()
