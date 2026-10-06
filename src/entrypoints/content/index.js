@@ -1,3 +1,5 @@
+/* global browser, defineContentScript */
+
 import './style.css'
 
 import { main as universal, onRequest } from './universal'
