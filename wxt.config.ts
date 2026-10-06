@@ -23,6 +23,9 @@ export default defineConfig({
             'tabs',
             'webRequest',
         ],
+        browser_specific_settings: {
+            gecko: {id: 'obey@composed.nu'},
+        },
         web_accessible_resources: [
             {
                 matches: ['<all_urls>'],
