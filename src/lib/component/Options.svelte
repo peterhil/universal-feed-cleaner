@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     import { keys } from 'rambdax'
 
     import OptionsKeyword from '$lib/component/OptionsKeyword.svelte'

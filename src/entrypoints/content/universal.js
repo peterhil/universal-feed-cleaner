@@ -6,7 +6,7 @@ import { markContainers } from '~/lib/marking'
 import { loadRules } from '~/lib/options'
 import { iUniq } from '~/lib/utils'
 
-function wrapIntoDetails (node: HTMLElement, reason: string): void {
+function wrapIntoDetails (node, reason) {
     const children = node.childNodes
     const details = document.createElement('details')
     const summary = document.createElement('summary')
@@ -28,7 +28,7 @@ function wrapIntoDetails (node: HTMLElement, reason: string): void {
     }
 }
 
-function buildRegex (keywords: string[]): RegExp {
+function buildRegex (keywords) {
     const flags = 'giu'
     const parts = keywords
         .map(escapeRegexp)
@@ -37,14 +37,14 @@ function buildRegex (keywords: string[]): RegExp {
     return new RegExp(pattern, flags)
 }
 
-function getReason (re: RegExp, node: HTMLElement): string {
+function getReason (re, node) {
     const matches = iUniq([...node.innerText.match(re)].sort())
     const reason = [...matches].join(', ')
 
     return reason
 }
 
-function checkElement (re: RegExp, node: HTMLElement): string | null {
+function checkElement (re, node) {
     const status = re.test(node.innerText) ? 'hidden' : 'checked'
     let reason = null
 
@@ -59,7 +59,7 @@ function checkElement (re: RegExp, node: HTMLElement): string | null {
     return reason
 }
 
-function hideElements (rules: object): void {
+function hideElements (rules) {
     // TODO Find elements within a container given as input context
     const newElements = document.querySelectorAll(
         '[data-ufc="container"] [data-ufc="element"]:not([data-ufc-status])'
@@ -69,7 +69,7 @@ function hideElements (rules: object): void {
     newElements.forEach((node) => checkElement(regex, node))
 }
 
-export async function main (): Promise<void> {
+export async function main () {
     const minChildCount = 5
     // TODO Return containers without wrappers and use with hideElements
     const containers = await findContainers(minChildCount)
@@ -82,7 +82,7 @@ export async function main (): Promise<void> {
     await hideElements(rules)
 }
 
-export function onRequestPlain (request, sender): void {
+export function onRequestPlain (request, sender) {
     if (request.type === 'xhr' && request.details.method === 'GET') {
         console.debug('[UFC] Xhr request:', { request })
         main()

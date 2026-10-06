@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     let { domain, word } = $props()
 
     function remove (word, domain) {

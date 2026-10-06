@@ -31,9 +31,9 @@ export const options = {
     }
 }
 
-export async function loadRules (url: string) {
+export async function loadRules (url) {
     const matched = filter(
-        (_, domain): boolean => {
+        (_, domain) => {
             return (domain === '*' || !!url.match(domain))
         },
         options.rules)

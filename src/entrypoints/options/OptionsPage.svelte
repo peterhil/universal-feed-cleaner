@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     import Options from '$lib/component/Options.svelte'
 </script>
 

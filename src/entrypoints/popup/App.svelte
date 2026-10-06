@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
     function openOptionsPage () {
         browser.runtime.openOptionsPage()
         return false
