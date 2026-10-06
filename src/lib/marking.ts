@@ -2,10 +2,6 @@ import { forEach } from 'rambdax'
 import { findSimilarElements, parents } from '$lib/dom'
 
 function markElement (node) {
-    if (node.dataset.ufc === 'element') {
-        return
-    }
-
     node.dataset.ufc = 'element'
 }
 
