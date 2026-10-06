@@ -1,6 +1,4 @@
 :root {
-	color-scheme: light dark;
-
     @media (prefers-color-scheme: light) {
         --ufc-color-text: #1a1a1a;
         --ufc-color-stripe: #f0f0f0;
