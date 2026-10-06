@@ -1,3 +1,3 @@
-# Universal feed cleaner
+# Obey – hide content!
 
-Hide social media and other feed contents by keywords to have some peace of mind.
+Hide social media posts or other content behind collapsible elements.

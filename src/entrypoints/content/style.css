@@ -1,45 +1,45 @@
 :root {
     @media (prefers-color-scheme: light) {
-        --ufc-color-text: #1a1a1a;
-        --ufc-color-stripe: #f0f0f0;
-        --ufc-color-bg: #ffffff;
+        --obey-color-text: #1a1a1a;
+        --obey-color-stripe: #f0f0f0;
+        --obey-color-bg: #ffffff;
     }
 
     @media (prefers-color-scheme: dark) {
-        --ufc-color-text: #fafafa;
-        --ufc-color-stripe: #00080f;
-        --ufc-color-bg: #1a2a3a;
+        --obey-color-text: #fafafa;
+        --obey-color-stripe: #00080f;
+        --obey-color-bg: #1a2a3a;
     }
 }
 
-body.ufc-debug {
-    [data-ufc] {
+body.obey-debug {
+    [data-obey] {
         outline-offset: -3px;
     }
 
-    [data-ufc="container"] {
+    [data-obey="container"] {
         outline: 3px solid lime;
     }
 
-    [data-ufc="element"] {
+    [data-obey="element"] {
         outline: 3px solid yellow;
     }
 
-    [data-ufc="wrapper"] {
+    [data-obey="wrapper"] {
         outline: 3px solid cyan;
     }
 }
 
-[data-ufc-status="hidden"] {
+[data-obey-status="hidden"] {
     details[open] {
-        border-bottom: 3px solid var(--ufc-color-stripe);
+        border-bottom: 3px solid var(--obey-color-stripe);
     }
 
     summary {
         padding: 0.5em;
-        background: var(--ufc-color-bg);
-        background-image: linear-gradient(135deg, var(--ufc-color-stripe) 25%, var(--ufc-color-bg) 25%, var(--ufc-color-bg) 50%, var(--ufc-color-stripe) 50%, var(--ufc-color-stripe) 75%, var(--ufc-color-bg) 75%, var(--ufc-color-bg) 100%);
+        background: var(--obey-color-bg);
+        background-image: linear-gradient(135deg, var(--obey-color-stripe) 25%, var(--obey-color-bg) 25%, var(--obey-color-bg) 50%, var(--obey-color-stripe) 50%, var(--obey-color-stripe) 75%, var(--obey-color-bg) 75%, var(--obey-color-bg) 100%);
         background-size: 31.5px 31.5px;
-        color: var(--ufc-color-text);
+        color: var(--obey-color-text);
     }
 }

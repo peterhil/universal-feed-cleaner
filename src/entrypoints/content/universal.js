@@ -53,10 +53,10 @@ function checkElement (re, node) {
     if (status === 'hidden') {
         reason = getReason(re, node)
 
-        node.dataset.ufcReason = reason
+        node.dataset.obeyReason = reason
         wrapIntoDetails(node, reason)
     }
-    node.dataset.ufcStatus = status
+    node.dataset.obeyStatus = status
 
     return reason
 }
@@ -64,7 +64,7 @@ function checkElement (re, node) {
 function hideElements (rules) {
     // TODO Find elements within a container given as input context
     const newElements = document.querySelectorAll(
-        '[data-ufc="container"] [data-ufc="element"]:not([data-ufc-status])'
+        '[data-obey="container"] [data-obey="element"]:not([data-obey-status])'
     )
     const regex = buildRegex(rules)
 
@@ -77,8 +77,8 @@ export async function main () {
     const containers = await findContainers(minChildCount)
     const rules = await loadRules(document.location.host)
 
-    console.debug('[UFC] Universal main:', { containers, rules })
-    document.body.classList.add('ufc-debug')
+    console.debug('[OBEY] Universal main:', { containers, rules })
+    document.body.classList.add('obey-debug')
 
     await markContainers(containers)
     await hideElements(rules)
@@ -86,7 +86,7 @@ export async function main () {
 
 export function onRequestPlain (request) {
     if (request.type === 'xhr' && request.details.method === 'GET') {
-        console.debug('[UFC] Xhr request:', { request })
+        console.debug('[OBEY] Xhr request:', { request })
         main()
     }
 }
