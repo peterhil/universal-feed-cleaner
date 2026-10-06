@@ -32,8 +32,7 @@ function buildRegex (keywords: string[]): RegExp {
     const flags = 'giu'
     const parts = keywords
         .map(escapeRegexp)
-        .map((keyword) => `\\b${keyword}\\b`)
-    const pattern = '(' + parts.join('|') + ')'
+    const pattern = '\\b(' + parts.join('|') + ')\\b'
 
     return new RegExp(pattern, flags)
 }
