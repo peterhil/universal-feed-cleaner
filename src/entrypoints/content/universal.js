@@ -13,7 +13,7 @@ function usePrepend () {
     return !!document.location.origin.match('facebook.com')
 }
 
-function wrapIntoDetails (node, reason, re) {
+function hideElement (node, reason, re) {
     const children = node.childNodes
     const details = document.createElement('details')
     const summary = document.createElement('summary')
@@ -25,7 +25,7 @@ function wrapIntoDetails (node, reason, re) {
 
         cells.forEach((cell) => {
             if (re.test(cell.innerText)) {
-                wrapIntoDetails(cell, reason, re)
+                hideElement(cell, reason, re)
             }
         })
     }
@@ -64,7 +64,7 @@ function checkElement (re, node) {
 
     if (status === 'hidden') {
         reason = getReason(re, node)
-        wrapIntoDetails(node, reason, re)
+        hideElement(node, reason, re)
     }
     node.dataset.obeyStatus = status
 
