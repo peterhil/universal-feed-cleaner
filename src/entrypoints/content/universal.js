@@ -50,7 +50,6 @@ function checkElement (re, node) {
 
     if (status === 'hidden') {
         reason = getReason(re, node)
-        node.dataset.obeyReason = reason
         wrapIntoDetails(node, reason)
     }
     node.dataset.obeyStatus = status
