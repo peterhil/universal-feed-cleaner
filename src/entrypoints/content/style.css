@@ -25,6 +25,10 @@ body.obey-debug {
         outline: 3px solid yellow;
     }
 
+    [data-obey-status="hidden"] {
+        outline: 3px solid violet;
+    }
+
     [data-obey="wrapper"] {
         outline: 3px solid cyan;
     }
