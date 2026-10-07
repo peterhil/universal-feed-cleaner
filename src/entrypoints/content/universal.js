@@ -80,19 +80,14 @@ export async function main () {
     await hideElements(rules)
 }
 
-export function onRequestPlain (request) {
-    if (
-        request.type === 'xhr'
-            && request.details.thirdParty === false
-    ) {
-        console.debug('[OBEY] Xhr request:', { request })
+export const onRequest = debounce((request) => {
+    if (request.type === 'xhr' && request.details.thirdParty === false) {
+        console.debug('[OBEY] XmlHttpRequest:', { request })
         main()
     }
-}
+}, 1500)
 
-export const onRequest = debounce(onRequestPlain, 1500)
-
-const onMutation = debounce((mutations) => {
+export const onMutation = debounce((mutations) => {
     console.debug('[OBEY] Mutations:', mutations)
     main()
 }, 1500)
