@@ -8,12 +8,16 @@ import { iUniq } from '~/lib/utils'
 import { loadRules } from '~/lib/options'
 import { markContainers } from '~/lib/marking'
 
+function usePrepend () {
+    // Use compromise prepend method on Facebook
+    return !!document.location.origin.match('facebook.com')
+}
+
 function wrapIntoDetails (node, reason, re) {
     const children = node.childNodes
     const details = document.createElement('details')
     const summary = document.createElement('summary')
 
-    details.classList.add('obey')
     summary.innerText = reason
 
     if (node.tagName === 'TR') {
@@ -26,8 +30,16 @@ function wrapIntoDetails (node, reason, re) {
         })
     }
     else {
-        details.append(summary)
-        node.prepend(details)
+        if (usePrepend()) {
+            details.classList.add('obey-prepend')
+            details.append(summary)
+            node.prepend(details)
+        }
+        else {
+            details.classList.add('obey')
+            details.replaceChildren(summary, ...children)
+            node.replaceChildren(details)
+        }
     }
 }
 
