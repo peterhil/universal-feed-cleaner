@@ -35,6 +35,24 @@ body.obey-debug {
 }
 
 [data-obey-status="hidden"] {
+    /* Make sure the element displays nicely */
+    min-height: auto;
+    margin-block: 0;
+    padding: 0;
+    font-size: initial;
+
+    details.obey,
+    details.obey-prepend {
+        flex-grow: 1;
+
+        summary {
+            font-size: smaller;
+            position: relative;
+            z-index: 10;
+        }
+    }
+    /* end nice display rules */
+
     details.obey-prepend:not([open]) {
         /* Hide children after details – a compromise because Facebook feed will crash if just wrapping the children inside the details element. Has the drawback of not being able to search the hidden elements… */
         & ~ * {
