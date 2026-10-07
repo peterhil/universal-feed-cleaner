@@ -20,6 +20,9 @@ export default defineBackground(() => {
 
     browser.webRequest.onCompleted.addListener(
         onRequestCompleted,
-        { urls: ['<all_urls>'] },
+        {
+            types: ['xmlhttprequest'],
+            urls: ['<all_urls>'],
+        },
     )
 })

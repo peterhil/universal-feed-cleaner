@@ -81,10 +81,13 @@ export async function main () {
 }
 
 export function onRequestPlain (request) {
-    if (request.type === 'xhr' && request.details.method === 'GET') {
+    if (
+        request.type === 'xhr'
+            && request.details.thirdParty === false
+    ) {
         console.debug('[OBEY] Xhr request:', { request })
         main()
     }
 }
 
-export const onRequest = debounce(onRequestPlain, 1000)
+export const onRequest = debounce(onRequestPlain, 1500)
