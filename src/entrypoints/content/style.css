@@ -35,14 +35,14 @@ body.obey-debug {
 }
 
 [data-obey-status="hidden"] {
-    details:not([open]) {
+    details.obey:not([open]) {
         /* Hide children after details – a compromise because Facebook feed will crash if just wrapping the children inside the details element. Has the drawback of not being able to search the hidden elements… */
         & ~ * {
             display: none;
         }
     }
 
-    &:has(details[open]) {
+    &:has(details.obey[open]) {
         border-bottom: 8px solid var(--obey-color-stripe);
     }
 
