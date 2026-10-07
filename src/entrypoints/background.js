@@ -22,8 +22,8 @@ export default defineBackground(() => {
         urls: ['<all_urls>'],
     }
 
-    browser.webRequest.onCompleted.addListener(
-        onRequestCompleted,
-        requestFilter,
-    )
+    // browser.webRequest.onCompleted.addListener(
+    //     onRequestCompleted,
+    //     requestFilter,
+    // )
 })

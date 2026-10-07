@@ -91,3 +91,12 @@ export function onRequestPlain (request) {
 }
 
 export const onRequest = debounce(onRequestPlain, 1500)
+
+const onMutation = debounce((mutations) => {
+    console.debug('[OBEY] Mutations:', mutations)
+    main()
+}, 1500)
+
+const observer = new MutationObserver(onMutation)
+
+observer.observe(document.body, { childList: true, subtree: true })
