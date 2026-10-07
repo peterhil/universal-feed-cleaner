@@ -2,7 +2,7 @@
     let { domain, word } = $props()
 
     function remove (word, domain) {
-        console.log('[UFC] Remove:', {word, domain})
+        console.log('[OBEY] Remove:', {word, domain})
     }
 </script>
 

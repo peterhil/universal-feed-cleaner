@@ -16,7 +16,7 @@ function onRequestCompleted (details) {
 }
 
 export default defineBackground(() => {
-    // console.debug('[UFC]: background script', { id: browser.runtime.id })
+    // console.debug('[OBEY]: background script', { id: browser.runtime.id })
 
     browser.webRequest.onCompleted.addListener(
         onRequestCompleted,

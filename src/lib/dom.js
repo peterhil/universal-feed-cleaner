@@ -99,7 +99,7 @@ export function findContainers (minChildCount) {
         }
     )
 
-    console.debug('[UFC] findContainers:', { containers })
+    console.debug('[OBEY] findContainers:', { containers })
     return containers
 }
 
@@ -119,7 +119,7 @@ export function findSimilarElements (container) {
     // TODO If most common element counts are a tie include all of them
     const limit = mean(values(map(length, similar)))
     const mostCommon = flatten(filter(nodes => nodes.length >= limit, values(similar)))
-    console.debug('[UFC] findSimilarElements:', { mostCommon, similar, limit })
+    console.debug('[OBEY] findSimilarElements:', { mostCommon, similar, limit })
 
     if (mostCommon.length <= 1) {
         return []

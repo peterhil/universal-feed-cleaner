@@ -39,7 +39,7 @@ export async function loadRules (url) {
         options.rules)
     const rules = flatten(values(matched))
 
-    // console.debug('[UFC] Matched rules:', { matched, rules })
+    // console.debug('[OBEY] Matched rules:', { matched, rules })
 
     return rules
 }
