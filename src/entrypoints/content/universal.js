@@ -8,24 +8,25 @@ import { iUniq } from '~/lib/utils'
 import { loadRules } from '~/lib/options'
 import { markContainers } from '~/lib/marking'
 
-function wrapIntoDetails (node, reason) {
+function wrapIntoDetails (node, reason, re) {
     const children = node.childNodes
     const details = document.createElement('details')
     const summary = document.createElement('summary')
 
     summary.innerText = reason
-    details.replaceChildren(summary, ...children)
 
     if (node.tagName === 'TR') {
-        const tr = document.createElement('td')
-        const colspan = details.querySelectorAll('td').length
+        const cells = node.querySelectorAll('td')
 
-        tr.setAttribute('colspan', colspan)
-        tr.replaceChildren(details)
-        node.replaceChildren(tr)
+        cells.forEach((cell) => {
+            if (re.test(cell.innerText)) {
+                wrapIntoDetails(cell, reason, re)
+            }
+        })
     }
     else {
-        node.replaceChildren(details)
+        details.append(summary)
+        node.prepend(details)
     }
 }
 
@@ -50,7 +51,7 @@ function checkElement (re, node) {
 
     if (status === 'hidden') {
         reason = getReason(re, node)
-        wrapIntoDetails(node, reason)
+        wrapIntoDetails(node, reason, re)
     }
     node.dataset.obeyStatus = status
 
