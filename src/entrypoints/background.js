@@ -17,12 +17,13 @@ function onRequestCompleted (details) {
 
 export default defineBackground(() => {
     // console.debug('[OBEY]: background script', { id: browser.runtime.id })
+    const requestFilter = {
+        types: ['xmlhttprequest'],
+        urls: ['<all_urls>'],
+    }
 
     browser.webRequest.onCompleted.addListener(
         onRequestCompleted,
-        {
-            types: ['xmlhttprequest'],
-            urls: ['<all_urls>'],
-        },
+        requestFilter,
     )
 })
