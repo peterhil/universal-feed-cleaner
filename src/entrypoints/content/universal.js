@@ -73,7 +73,7 @@ export async function main () {
     const containers = await findContainers(minChildCount)
     const rules = await loadRules(document.location.host)
 
-    console.debug('[OBEY] Universal main:', { containers, rules })
+    // console.debug('[OBEY] Universal main:', { containers, rules })
     document.body.classList.add('obey-debug')
 
     await markContainers(containers)
