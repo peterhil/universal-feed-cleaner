@@ -36,10 +36,6 @@ export function isVisible (node) {
     return !!(node.offsetWidth && node.offsetHeight)
 }
 
-export function isBodyWide (node) {
-    return node.offsetWidth === document.body.offsetWidth
-}
-
 export function sameScrollSize (nodeA, nodeB) {
     const sameWidth = equals(nodeA.scrollWidth, nodeB.scrollWidth)
     const sameHeight = equals(nodeA.scrollHeight, nodeB.scrollHeight)
@@ -91,7 +87,6 @@ export function findContainers (minChildCount) {
                 && isVertical(node)
                 && node.offsetWidth >= minContainerWidth
                 && visibleChildren(node).length > minChildCount
-                && !isBodyWide(node)
                 && !sameScrollSize(document.body, node)
             return accept
                 ? NodeFilter.FILTER_ACCEPT
