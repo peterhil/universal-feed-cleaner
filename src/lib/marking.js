@@ -33,7 +33,12 @@ function markWrapper (node) {
     const parentContainers = parents(node, '[data-obey="container"]')
 
     forEach(
-        (node) => node.dataset.obey = 'wrapper',
+        (node) => {
+            // Never mark Facebook feed as wrapper
+            if (node.getAttribute('role') === 'feed') return
+
+            node.dataset.obey = 'wrapper'
+        },
         parentContainers
     )
 }
