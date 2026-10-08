@@ -113,7 +113,7 @@ export function findSimilarElements (container) {
     // TODO If most common element counts are a tie include all of them
     const limit = mean(values(map(length, similar)))
     const mostCommon = flatten(filter(nodes => nodes.length >= limit, values(similar)))
-    // console.debug('[OBEY] findSimilarElements:', { mostCommon, similar, limit })
+    // debug('findSimilarElements:', { mostCommon, similar, limit })
 
     if (mostCommon.length <= 1) {
         return []

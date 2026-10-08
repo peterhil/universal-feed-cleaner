@@ -1,9 +1,11 @@
+import { debug } from '~/lib/debug'
+
 function onRequestCompleted (details) {
     if (details.method === 'GET' && details.type === 'xmlhttprequest') {
         const message = { type: 'xhr', details }
         const tabId = details.tabId
 
-        // console.debug('XHR completed:', details)
+        // debug('XHR completed:', details)
 
         if (tabId >= 0) {
             // Note: You can also use a connection-based approach to exchange messages.
@@ -16,7 +18,7 @@ function onRequestCompleted (details) {
 }
 
 export default defineBackground(() => {
-    // console.debug('[OBEY]: background script', { id: browser.runtime.id })
+    // debug('Background:', { id: browser.runtime.id })
     const requestFilter = {
         types: ['xmlhttprequest'],
         urls: ['<all_urls>'],

@@ -1,8 +1,10 @@
 <script>
+    import { debug } from '~/lib/debug'
+
     let { domain, word } = $props()
 
     function remove (word, domain) {
-        console.log('[OBEY] Remove:', {word, domain})
+        debug('Remove:', {word, domain})
     }
 </script>
 

@@ -3,6 +3,7 @@
 // import escapeRegexp from 'escape-string-regexp'
 import { debounce, isEmpty, match } from 'rambdax'
 
+import { debug } from '~/lib/debug'
 import { findContainers } from '~/lib/dom'
 import { iUniq } from '~/lib/utils'
 import { loadRules } from '~/lib/options'
@@ -19,7 +20,7 @@ function addDetails (element, reason, keywords) {
     const summary = document.createElement('summary')
 
     summary.innerText = reason
-    // console.debug('[UFC] addDetails:', {element, reason})
+    // debug('addDetails:', {element, reason})
 
     if (element.tagName === 'TR') {
         const cells = element.querySelectorAll('td')
@@ -103,7 +104,7 @@ export async function main () {
     const containers = await findContainers(minChildCount)
     const keywords = await loadRules(document.location.host)
 
-    console.debug('[OBEY] Universal main:', { containers, keywords })
+    debug('Universal main:', { containers, keywords })
     document.body.classList.add('obey-debug')
 
     await markContainers(containers)
@@ -112,13 +113,13 @@ export async function main () {
 
 export const onRequest = debounce((request) => {
     if (request.type === 'xhr' && request.details.thirdParty === false) {
-        console.debug('[OBEY] XmlHttpRequest:', { request })
+        debug('XmlHttpRequest:', { request })
         main()
     }
 }, 1500)
 
 export const onMutation = debounce((mutations) => {
-    // console.debug('[OBEY] Mutations:', mutations)
+    debug('Mutations:', mutations)
     main()
 }, 1500)
 
