@@ -1,7 +1,7 @@
-/* global console, document */
+/* global MutationObserver, console, document */
 
-import escapeRegexp from 'escape-string-regexp'
-import { debounce } from 'rambdax'
+// import escapeRegexp from 'escape-string-regexp'
+import { debounce, isEmpty, match } from 'rambdax'
 
 import { findContainers } from '~/lib/dom'
 import { iUniq } from '~/lib/utils'
@@ -13,84 +13,101 @@ function usePrepend () {
     return !!document.location.origin.match('facebook.com')
 }
 
-function hideElement (node, reason, re) {
-    const children = node.childNodes
+function addDetails (element, reason, keywords) {
+    const children = element.childNodes
     const details = document.createElement('details')
     const summary = document.createElement('summary')
 
     summary.innerText = reason
+    // console.debug('[UFC] addDetails:', {element, reason})
 
-    if (node.tagName === 'TR') {
-        const cells = node.querySelectorAll('td')
+    if (element.tagName === 'TR') {
+        const cells = element.querySelectorAll('td')
+
+        element.dataset.obeyStatus = 'skip'
 
         cells.forEach((cell) => {
-            if (re.test(cell.innerText)) {
-                hideElement(cell, reason, re)
+            if (hasKeywords(keywords, cell.innerText)) {
+                checkElement(keywords, cell)
             }
         })
     }
     else {
+        element.dataset.obeyStatus = 'hidden'
+
         if (usePrepend()) {
             details.classList.add('obey-prepend')
             details.append(summary)
-            node.prepend(details)
+            element.prepend(details)
         }
         else {
             details.classList.add('obey')
             details.replaceChildren(summary, ...children)
-            node.replaceChildren(details)
+            element.replaceChildren(details)
         }
     }
 }
 
-function buildRegex (keywords) {
-    const flags = 'giu'
-    const parts = keywords.map(escapeRegexp)
-    const pattern = '\\b(' + parts.join('|') + ')\\b'
+function regexpPattern (keywords) {
+    const keys = keywords.map(RegExp.escape)
+    const pattern = '\\b(' + keys.join('|') + '\\b)'
 
-    return new RegExp(pattern, flags)
+    return pattern
 }
 
-function getReason (re, node) {
-    const matches = iUniq([...node.innerText.match(re)].sort())
-    const reason = [...matches].join(', ')
+function hasKeywords (keywords, text) {
+    const re = new RegExp(regexpPattern(keywords), 'giu')
+    return re.test(text)
+}
+
+function searchKeywords (keywords, text) {
+    const re = new RegExp(regexpPattern(keywords), 'giu')
+    return match(re, text)
+}
+
+function getReason (matches) {
+    const sorted = iUniq(matches.sort())
+    const reason = sorted.join(', ')
 
     return reason
 }
 
-function checkElement (re, node) {
-    const status = re.test(node.innerText) ? 'hidden' : 'checked'
-    let reason = null
+function checkElement (keywords, element) {
+    const matches = searchKeywords(keywords, element.innerText)
+    const hide = !isEmpty(matches)
 
-    if (status === 'hidden') {
-        reason = getReason(re, node)
-        hideElement(node, reason, re)
+    // Avoid recursion with TR elements
+    if (element.dataset.obeyStatus === 'skip') return false
+
+    if (hide) {
+        const reason = getReason(matches)
+
+        addDetails(element, reason, keywords)
     }
-    node.dataset.obeyStatus = status
 
-    return reason
+    return hide
 }
 
-function hideElements (rules) {
+function hideElements (keywords) {
     // TODO Find elements within a container given as input context
-    const newElements = document.querySelectorAll(
+    const newElements = document.body.querySelectorAll(
         '[data-obey="container"] [data-obey="element"]:not([data-obey-status])'
     )
-    const regex = buildRegex(rules)
-
-    newElements.forEach((node) => checkElement(regex, node))
+    newElements.forEach((element) => {
+        checkElement(keywords, element)
+    })
 }
 
 export async function main () {
     const minChildCount = 5
     const containers = await findContainers(minChildCount)
-    const rules = await loadRules(document.location.host)
+    const keywords = await loadRules(document.location.host)
 
-    // console.debug('[OBEY] Universal main:', { containers, rules })
+    console.debug('[OBEY] Universal main:', { containers, keywords })
     document.body.classList.add('obey-debug')
 
     await markContainers(containers)
-    await hideElements(rules)
+    await hideElements(keywords)
 }
 
 export const onRequest = debounce((request) => {
