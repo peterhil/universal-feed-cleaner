@@ -118,7 +118,7 @@ export const onRequest = debounce((request) => {
 }, 1500)
 
 export const onMutation = debounce((mutations) => {
-    console.debug('[OBEY] Mutations:', mutations)
+    // console.debug('[OBEY] Mutations:', mutations)
     main()
 }, 1500)
 

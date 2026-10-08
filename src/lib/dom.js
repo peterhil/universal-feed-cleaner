@@ -94,7 +94,6 @@ export function findContainers (minChildCount) {
         }
     )
 
-    console.debug('[OBEY] Containers:', { containers })
     return containers
 }
 
